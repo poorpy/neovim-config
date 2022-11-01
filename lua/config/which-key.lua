@@ -197,7 +197,7 @@ local M = {
                     '<cmd>lua require"gitsigns".blame_line{full=true}<cr>',
                     "Blame Line",
                 },
-                ["p"] = {
+                ["P"] = {
                     '<cmd>lua require"gitsigns".preview_hunk()<cr>',
                     "Preview Hunk",
                 },
@@ -253,6 +253,10 @@ local M = {
                 ["y"] = {
                     '<cmd>lua require"gitlinker".get_buf_range_url("n", {action_callback = require"gitlinker.actions".copy_to_clipboard})<cr>',
                     "Copy link to clipboard",
+                },
+                ["p"] = {
+                    "<cmd>Git push<cr>",
+                    "Git push",
                 },
             },
             ["h"] = {
