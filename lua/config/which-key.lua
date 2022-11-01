@@ -227,11 +227,11 @@ local M = {
                 },
                 ["o"] = { "<cmd>Telescope git_status<cr>", "Open changed files" },
                 ["b"] = { "<cmd>Telescope git_branches<cr>", "Checkout branch" },
-                ["c"] = { "<cmd>Telescope git_commits<cr>", "Checkout commit" },
-                ["C"] = {
-                    "<cmd>Telescope git_bcommits<cr>",
-                    "Checkout commit(for current file)",
+                ["c"] = {
+                    "<cmd>Git commit<cr>",
+                    "Fugitive",
                 },
+                ["C"] = { "<cmd>Telescope git_commits<cr>", "Checkout commit" },
                 ["d"] = {
                     name = "Diffview",
                     ["o"] = { "<cmd>DiffviewOpen<cr>", "Open" },
