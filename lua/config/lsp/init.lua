@@ -8,12 +8,13 @@ end
 local servers = {
     bashls = true,
     cssls = true,
-    clangd = true,
+    ccls = true,
     dockerls = true,
     golangci_lint_ls = true,
     html = { init_options = { provideFormatter = false } },
     jsonls = { init_options = { provideFormatter = false } },
     pyright = true,
+    texlab = { filetypes = { "tex", "plaintex", "bib", "latex" } },
     sumneko_lua = {
         cmd = { "lua-language-server" },
         settings = {

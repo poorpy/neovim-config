@@ -43,6 +43,9 @@ vim.wo.signcolumn = "yes"
 -- enable 24-bit RGB
 vim.o.termguicolors = true
 
+-- set latex as default tex flavor
+vim.g.texflavor = "latex"
+
 -- use dark background
 vim.opt.background = "dark"
 

@@ -15,6 +15,10 @@ return require("packer").startup(function(use)
     -- better diff mode
     use("sindrets/diffview.nvim")
 
+    -- Latex syntax and preview {{{
+    use("lervag/vimtex")
+    -- }}}
+
     -- Markdown preview {{{
     use({
         "iamcco/markdown-preview.nvim",
@@ -134,14 +138,7 @@ return require("packer").startup(function(use)
         "glepnir/lspsaga.nvim",
         branch = "main",
         config = function()
-            local saga = require("lspsaga")
-
-            saga.init_lsp_saga({
-                code_action_lightbulb = {
-                    enable = false,
-                },
-                max_preview_lines = 50,
-            })
+            require("lspsaga").setup({})
         end,
     })
     -- }}}

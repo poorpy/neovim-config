@@ -2,6 +2,7 @@ local M = {}
 
 M.config = {
     ensure_installed = {
+        "c",
         "css",
         "dockerfile",
         "go",
@@ -13,9 +14,9 @@ M.config = {
         "javascript",
         "json",
         "json5",
-        "latex",
         "lua",
         "make",
+        "markdown",
         "python",
         "rust",
         "nix",

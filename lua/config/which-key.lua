@@ -112,7 +112,7 @@ local M = {
             ["l"] = {
                 name = "LSP",
                 ["a"] = {
-                    "<cmd>Lspsaga range_code_action<cr>",
+                    "<cmd>Lspsaga code_action<cr>",
                     "Code Action Range",
                 },
             },
