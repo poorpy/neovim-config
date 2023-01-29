@@ -15,8 +15,36 @@ return require("packer").startup(function(use)
     -- better diff mode
     use("sindrets/diffview.nvim")
 
-    -- Latex syntax and preview {{{
+    -- LaTex syntax and preview
     use("lervag/vimtex")
+
+    -- Platform independent LSP and debugger install {{{
+    use({
+        "williamboman/mason.nvim",
+        config = function()
+            require("mason").setup()
+        end,
+    })
+
+    use({
+        "williamboman/mason-lspconfig.nvim",
+        config = function()
+            require("mason-lspconfig").setup({
+                ensure_installed = {
+                    "sumneko_lua",
+                    "efm",
+                    -- "rust_analyzer", -- fails on nixos
+                    "gopls",
+                    "golangci_lint_ls",
+                    "jsonls",
+                    "yamlls",
+                    -- "texlab", -- fails on nixos
+                    -- "marksman", -- markdown, fails on nixos
+                    "pyright",
+                },
+            })
+        end,
+    })
     -- }}}
 
     -- Markdown preview {{{

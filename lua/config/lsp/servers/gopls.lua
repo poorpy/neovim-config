@@ -20,7 +20,6 @@ M.settings = {
         staticcheck = true,
         matcher = "Fuzzy",
         diagnosticsDelay = "500ms",
-        experimentalWatchedFileDelay = "100ms",
         symbolMatcher = "fuzzy",
         gofumpt = true,
     },
