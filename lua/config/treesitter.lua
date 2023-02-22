@@ -17,6 +17,7 @@ M.config = {
         "lua",
         "make",
         "markdown",
+        "markdown_inline",
         "python",
         "rust",
         "nix",

@@ -31,7 +31,7 @@ return require("packer").startup(function(use)
         config = function()
             require("mason-lspconfig").setup({
                 ensure_installed = {
-                    "sumneko_lua",
+                    "lua_ls",
                     "efm",
                     -- "rust_analyzer", -- fails on nixos
                     "gopls",
@@ -186,6 +186,7 @@ return require("packer").startup(function(use)
     -- }}}
 
     -- Go development {{{
+    use({ "ray-x/guihua.lua", run = "cd lua/fzy && make" })
     use({
         "ray-x/go.nvim",
         config = function()
