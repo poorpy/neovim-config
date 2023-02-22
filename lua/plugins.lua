@@ -185,6 +185,10 @@ return require("packer").startup(function(use)
     use({ "nvim-telescope/telescope-live-grep-args.nvim" })
     -- }}}
 
+    -- Rust development {{{
+    use("pest-parser/pest.vim")
+    -- }}}
+
     -- Go development {{{
     use({ "ray-x/guihua.lua", run = "cd lua/fzy && make" })
     use({
