@@ -94,9 +94,6 @@ return require("packer").startup(function(use)
         config = function()
             require("config.mini.pairs").setup()
             require("config.mini.comment").setup()
-            -- I currently decided to use nvim-surround
-            -- but maybe I'll switch to this in near future
-            -- require("config.mini.surround").setup()
         end,
     })
     -- }}}
@@ -104,6 +101,7 @@ return require("packer").startup(function(use)
     -- surround operator {{{
     use({
         "kylechui/nvim-surround",
+        tag = "*",
         config = function()
             require("nvim-surround").setup({})
         end,
@@ -236,5 +234,9 @@ return require("packer").startup(function(use)
             require("config.cmp").setup()
         end,
     })
+    -- }}}
+
+    -- cue lang {{{
+    use("jjo/vim-cue")
     -- }}}
 end)

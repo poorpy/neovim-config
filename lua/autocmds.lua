@@ -32,6 +32,13 @@ vim.api.nvim_create_autocmd("BufWritePost", {
     group = vimrc_group,
 })
 
+vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
+    desc = "Recognize .yml files as ansible config",
+    pattern = { "*/ansible/*.yml" },
+    command = "setlocal filetype=yaml.ansible",
+    group = vimrc_group,
+})
+
 local highlight_group = vim.api.nvim_create_augroup("Highlight", { clear = true })
 
 vim.api.nvim_create_autocmd("TextYankPost", {

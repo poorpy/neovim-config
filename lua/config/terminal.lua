@@ -38,8 +38,12 @@ M.setup = function()
     terminal.setup(M.config)
     local map = vim.api.nvim_set_keymap
     local opts = { noremap = true, silent = true }
-    map("", "<M-Tab>", "<cmd>1ToggleTerm<cr>", opts)
-    map("t", "<M-Tab>", "<C-\\><C-N>:1ToggleTerm<cr>", opts)
+    map("", "<M-Tab>", "<cmd>1ToggleTerm direction=horizontal<cr>", opts)
+    map("t", "<M-Tab>", "<C-\\><C-N>:1ToggleTerm direction=horizontal<cr>", opts)
+    map("", "<M-1>", "<cmd>2ToggleTerm<cr>", opts)
+    map("t", "<M-1>", "<C-\\><C-N>:2ToggleTerm<cr>", opts)
+    map("", "<M-2>", "<cmd>3ToggleTerm<cr>", opts)
+    map("t", "<M-2>", "<C-\\><C-N>:3ToggleTerm<cr>", opts)
 end
 
 return M

@@ -6,6 +6,7 @@ if not util_ok then
 end
 
 local servers = {
+    ansiblels = true,
     bashls = true,
     cssls = true,
     ccls = true,
@@ -14,7 +15,7 @@ local servers = {
     html = { init_options = { provideFormatter = false } },
     jsonls = { init_options = { provideFormatter = false } },
     pyright = true,
-    marksman = true,
+    prosemd_lsp = true,
     texlab = { filetypes = { "tex", "plaintex", "bib", "latex" } },
     lua_ls = {
         cmd = { "lua-language-server" },
