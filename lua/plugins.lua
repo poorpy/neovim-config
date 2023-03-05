@@ -31,16 +31,16 @@ return require("packer").startup(function(use)
         config = function()
             require("mason-lspconfig").setup({
                 ensure_installed = {
-                    "lua_ls",
-                    "efm",
-                    -- "rust_analyzer", -- fails on nixos
-                    "gopls",
-                    "golangci_lint_ls",
-                    "jsonls",
-                    "yamlls",
-                    -- "texlab", -- fails on nixos
-                    -- "marksman", -- markdown, fails on nixos
-                    "pyright",
+                    -- "lua_ls",
+                    -- "efm",
+                    -- -- "rust_analyzer", -- fails on nixos
+                    -- "gopls",
+                    -- "golangci_lint_ls",
+                    -- "jsonls",
+                    -- "yamlls",
+                    -- -- "texlab", -- fails on nixos
+                    -- -- "marksman", -- markdown, fails on nixos
+                    -- "pyright",
                 },
             })
         end,
@@ -170,6 +170,10 @@ return require("packer").startup(function(use)
     -- }}}
 
     -- Fuzzy filtering {{{
+    use({ "nvim-telescope/telescope-file-browser.nvim" })
+    use({ "nvim-telescope/telescope-live-grep-args.nvim" })
+    use({ "nvim-telescope/telescope-fzf-native.nvim", run = "make" })
+
     use({
         "nvim-telescope/telescope.nvim",
         config = function()
@@ -177,10 +181,6 @@ return require("packer").startup(function(use)
         end,
         requires = "nvim-lua/plenary.nvim",
     })
-
-    use({ "nvim-telescope/telescope-file-browser.nvim" })
-
-    use({ "nvim-telescope/telescope-live-grep-args.nvim" })
     -- }}}
 
     -- Rust development {{{
@@ -238,5 +238,9 @@ return require("packer").startup(function(use)
 
     -- cue lang {{{
     use("jjo/vim-cue")
+    -- }}}
+
+    -- terraform {{{
+    use("hashivim/vim-terraform")
     -- }}}
 end)
