@@ -110,8 +110,18 @@ return require("packer").startup(function(use)
 
     -- tpope git, better netrw, better substitution {{{
     use("tpope/vim-fugitive")
-    use("tpope/vim-vinegar")
+    -- use("tpope/vim-vinegar")
     use("tpope/vim-abolish")
+    -- }}}
+
+    -- netrw replacement {{{
+    use({
+        "stevearc/oil.nvim",
+        config = function()
+            require("oil").setup()
+            vim.keymap.set("n", "-", require("oil").open, { desc = "Open parent directory" })
+        end,
+    })
     -- }}}
 
     -- git info {{{
