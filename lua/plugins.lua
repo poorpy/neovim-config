@@ -215,9 +215,7 @@ return require("packer").startup(function(use)
         requires = "rafamadriz/friendly-snippets",
         config = function()
             require("luasnip.loaders.from_vscode").lazy_load()
-            require("luasnip.loaders.from_vscode").lazy_load({
-                paths = { "$HOME/.vscode/extensions/amimaro.remix-run-snippets-1.1.0" },
-            })
+            require("luasnip").filetype_extend("handlebars", { "html" })
         end,
     })
     use("hrsh7th/cmp-buffer")
