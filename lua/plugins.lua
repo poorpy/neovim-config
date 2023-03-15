@@ -141,6 +141,17 @@ return require("packer").startup(function(use)
             require("config.terminal").setup()
         end,
     })
+    use({
+        "willothy/flatten.nvim",
+        config = function()
+            require("flatten").setup({
+                window = {
+                    open = "tab",
+                    focus = "first",
+                },
+            })
+        end,
+    })
     -- }}}
 
     -- keybinds with explanation {{{
@@ -242,6 +253,7 @@ return require("packer").startup(function(use)
             require("config.cmp").setup()
         end,
     })
+    use("github/copilot.vim")
     -- }}}
 
     -- cue lang {{{
