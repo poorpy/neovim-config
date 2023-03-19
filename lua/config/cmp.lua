@@ -77,6 +77,7 @@ M.setup = function()
             { name = "calc" },
             { name = "fish" },
             { name = "emoji" },
+            { name = "copilot" },
         },
 
         snippet = {
