@@ -49,7 +49,10 @@ M.setup = function()
                 i = cmp.mapping.abort(),
                 c = cmp.mapping.close(),
             }),
-            ["<CR>"] = cmp.mapping.confirm({ select = false }),
+            ["<CR>"] = cmp.mapping.confirm({
+                behavior = cmp.ConfirmBehavior.Replace,
+                select = false,
+            }),
             ["<C-y>"] = cmp.config.disable,
             ["<C-Space>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
             ["<C-n>"] = select_next_item,

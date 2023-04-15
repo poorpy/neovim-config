@@ -33,10 +33,12 @@ function M.lsp_symbol(name, icon)
     vim.fn.sign_define(hl, { text = icon, numhl = hl, texthl = hl })
 end
 
-local function custom_on_attach(_, bufnr)
+local function custom_on_attach(client, bufnr)
     local function buf_set_keymap(...)
         vim.api.nvim_buf_set_keymap(bufnr, ...)
     end
+
+    client.server_capabilities.semanticTokensProvider = nil
 
     local opts = { noremap = true, silent = true }
 

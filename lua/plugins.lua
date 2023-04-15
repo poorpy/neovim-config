@@ -30,18 +30,7 @@ return require("packer").startup(function(use)
         "williamboman/mason-lspconfig.nvim",
         config = function()
             require("mason-lspconfig").setup({
-                ensure_installed = {
-                    -- "lua_ls",
-                    -- "efm",
-                    -- -- "rust_analyzer", -- fails on nixos
-                    -- "gopls",
-                    -- "golangci_lint_ls",
-                    -- "jsonls",
-                    -- "yamlls",
-                    -- -- "texlab", -- fails on nixos
-                    -- -- "marksman", -- markdown, fails on nixos
-                    -- "pyright",
-                },
+                ensure_installed = {},
             })
         end,
     })
@@ -279,5 +268,46 @@ return require("packer").startup(function(use)
 
     -- terraform {{{
     use("hashivim/vim-terraform")
+    -- }}}
+
+    -- DAP {{{
+    use({
+        "mfussenegger/nvim-dap",
+        config = function()
+            local dap = require("dap")
+            dap.adapters.lldb = {
+                type = "executable",
+                command = "lldb-vscode",
+                name = "lldb",
+            }
+            dap.configurations.rust = {
+                {
+                    type = "lldb",
+                    request = "launch",
+                    program = function()
+                        vim.fn.jobstart("cargo build")
+                        return vim.fn.input(
+                            "Path to executable: ",
+                            vim.fn.getcwd() .. "/target/debug/",
+                            "file"
+                        )
+                    end,
+                    cwd = "${workspaceFolder}",
+                    stopOnEntry = false,
+                    args = function()
+                        local args = vim.fn.input("Program arguments: ")
+                        return vim.split(args, " ", { trimempty = true, plain = true })
+                    end,
+                },
+            }
+        end,
+    })
+    use({
+        "rcarriga/nvim-dap-ui",
+        requires = { "mfussenegger/nvim-dap" },
+        config = function()
+            require("dapui").setup({})
+        end,
+    })
     -- }}}
 end)

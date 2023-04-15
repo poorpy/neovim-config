@@ -17,6 +17,8 @@ local servers = {
     pyright = true,
     prosemd_lsp = true,
     tailwindcss = true,
+    rnix = true,
+    rust_analyzer = true,
     texlab = { filetypes = { "tex", "plaintex", "bib", "latex" } },
     lua_ls = {
         cmd = { "lua-language-server" },
