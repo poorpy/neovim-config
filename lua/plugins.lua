@@ -277,7 +277,7 @@ return require("packer").startup(function(use)
             local dap = require("dap")
             dap.adapters.lldb = {
                 type = "executable",
-                command = "lldb-vscode",
+                command = "rustup run stable lldb-vscode",
                 name = "lldb",
             }
             dap.configurations.rust = {
