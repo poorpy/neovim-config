@@ -38,8 +38,6 @@ local function custom_on_attach(client, bufnr)
         vim.api.nvim_buf_set_keymap(bufnr, ...)
     end
 
-    client.server_capabilities.semanticTokensProvider = nil
-
     local opts = { noremap = true, silent = true }
 
     buf_set_keymap("n", "gD", "<cmd>Lspsaga peek_definition<CR>", opts)

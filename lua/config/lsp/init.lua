@@ -16,9 +16,12 @@ local servers = {
     jsonls = { init_options = { provideFormatter = false } },
     -- pyright = true,
     prosemd_lsp = true,
-    tailwindcss = true,
+    -- tailwindcss = true,
     rnix = true,
     rust_analyzer = true,
+    terraformls = true,
+    tsserver = true,
+    ruby_ls = true,
     texlab = { filetypes = { "tex", "plaintex", "bib", "latex" } },
     lua_ls = {
         cmd = { "lua-language-server" },

@@ -39,6 +39,13 @@ vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
     group = vimrc_group,
 })
 
+vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
+    desc = "Recognize yaml jinja2 templates",
+    pattern = { "*.(yaml|yml).(j2|jinja2)" },
+    command = "setlocal filetype=jinja.yaml",
+    group = vimrc_group,
+})
+
 local highlight_group = vim.api.nvim_create_augroup("Highlight", { clear = true })
 
 vim.api.nvim_create_autocmd("TextYankPost", {

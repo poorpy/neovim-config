@@ -18,6 +18,9 @@ return require("packer").startup(function(use)
     -- LaTex syntax and preview
     use("lervag/vimtex")
 
+    -- jinja2 syntax
+    use("Glench/Vim-Jinja2-Syntax")
+
     -- Platform independent LSP and debugger install {{{
     use({
         "williamboman/mason.nvim",
