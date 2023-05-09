@@ -137,7 +137,7 @@ M.setup = function()
             documentation = cmp.config.window.bordered(),
         },
 
-        experimental = { native_menu = false, ghost_text = true },
+        experimental = { native_menu = false, ghost_text = { hl_group = "Comment" } },
     })
 end
 
