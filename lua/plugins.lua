@@ -21,24 +21,6 @@ return require("packer").startup(function(use)
     -- jinja2 syntax
     use("Glench/Vim-Jinja2-Syntax")
 
-    -- Platform independent LSP and debugger install {{{
-    use({
-        "williamboman/mason.nvim",
-        config = function()
-            require("mason").setup()
-        end,
-    })
-
-    use({
-        "williamboman/mason-lspconfig.nvim",
-        config = function()
-            require("mason-lspconfig").setup({
-                ensure_installed = {},
-            })
-        end,
-    })
-    -- }}}
-
     -- Markdown preview {{{
     use({
         "iamcco/markdown-preview.nvim",
@@ -155,32 +137,73 @@ return require("packer").startup(function(use)
     })
     -- }}}
 
-    -- LSP {{{
+    -- LSP & completion & snippets {{{
     use({
-        "neovim/nvim-lspconfig",
+        "VonHeikemen/lsp-zero.nvim",
+        branch = "v2.x",
+        requires = {
+            { "neovim/nvim-lspconfig" },
+            { "onsails/lspkind-nvim" },
+            { "jose-elias-alvarez/null-ls.nvim" },
+
+            -- Copilot
+            {
+                "zbirenbaum/copilot.lua",
+                cmd = "Copilot",
+                event = "InsertEnter",
+                config = function()
+                    require("copilot").setup({
+                        suggestion = { enabled = false },
+                        panel = { enabled = false },
+                    })
+                end,
+            },
+
+            -- Autocompletion
+            { "hrsh7th/nvim-cmp" },
+            { "hrsh7th/cmp-buffer" },
+            { "hrsh7th/cmp-path" },
+            { "hrsh7th/cmp-nvim-lsp" },
+            { "hrsh7th/cmp-nvim-lua" },
+            { "zbirenbaum/copilot-cmp" },
+            { "saadparwaiz1/cmp_luasnip" },
+
+            -- Snippets
+            { "L3MON4D3/LuaSnip" },
+            { "rafamadriz/friendly-snippets" },
+        },
         config = function()
-            require("config.lsp.init")
+            require("config.lsp").setup()
         end,
-        after = { "nvim-cmp" },
+    })
+
+    -- nicer lsp ui
+    use({
+        "glepnir/lspsaga.nvim",
+        opt = true,
+        branch = "main",
+        event = "LspAttach",
+        config = function()
+            require("lspsaga").setup({})
+        end,
+        requires = {
+            { "nvim-tree/nvim-web-devicons" },
+            --Please make sure you install markdown and markdown_inline parser
+            { "nvim-treesitter/nvim-treesitter" },
+        },
     })
 
     -- nicer diagnostics
     use({
         "folke/lsp-trouble.nvim",
         config = function()
-            require("trouble").setup({ auto_preview = false, auto_fold = true, auto_close = true })
+            require("trouble").setup({
+                auto_preview = false,
+                auto_fold = true,
+                auto_close = true,
+            })
         end,
     })
-
-    -- better lsp UI
-    use({
-        "glepnir/lspsaga.nvim",
-        branch = "main",
-        config = function()
-            require("lspsaga").setup({})
-        end,
-    })
-    -- }}}
 
     -- Fuzzy filtering {{{
     use({ "nvim-telescope/telescope-file-browser.nvim" })
@@ -208,60 +231,6 @@ return require("packer").startup(function(use)
             require("config.go").setup()
         end,
         ft = { "go", "gomod" },
-    })
-    -- }}}
-
-    -- completion & snippets {{{
-    use("onsails/lspkind-nvim")
-    use({
-        "L3MON4D3/LuaSnip",
-        requires = "rafamadriz/friendly-snippets",
-        config = function()
-            require("luasnip.loaders.from_vscode").lazy_load()
-            require("luasnip").filetype_extend("handlebars", { "html" })
-        end,
-    })
-    use("hrsh7th/cmp-buffer")
-    use("hrsh7th/cmp-calc")
-    use("hrsh7th/cmp-emoji")
-    use("hrsh7th/cmp-nvim-lsp")
-    use("hrsh7th/cmp-nvim-lua")
-    use("hrsh7th/cmp-path")
-    use("saadparwaiz1/cmp_luasnip")
-    use({
-        "hrsh7th/nvim-cmp",
-        after = {
-            "lspkind-nvim",
-            "LuaSnip",
-            "cmp_luasnip",
-            "cmp-nvim-lua",
-            "cmp-nvim-lsp",
-            "cmp-buffer",
-            "cmp-path",
-            "cmp-calc",
-            "cmp-emoji",
-        },
-        config = function()
-            require("config.cmp").setup()
-        end,
-    })
-    use({
-        "zbirenbaum/copilot.lua",
-        cmd = "Copilot",
-        event = "InsertEnter",
-        config = function()
-            require("copilot").setup({
-                suggestion = { enabled = false },
-                panel = { enabled = false },
-            })
-        end,
-    })
-    use({
-        "zbirenbaum/copilot-cmp",
-        after = { "copilot.lua" },
-        config = function()
-            require("copilot_cmp").setup()
-        end,
     })
     -- }}}
 
@@ -314,3 +283,4 @@ return require("packer").startup(function(use)
     })
     -- }}}
 end)
+
