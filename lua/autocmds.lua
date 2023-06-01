@@ -46,6 +46,13 @@ vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
     group = vimrc_group,
 })
 
+vim.api.nvim_create_autocmd({ "VimEnter" }, {
+    desc = "Disable Copilot by default",
+    pattern = { "*" },
+    command = "Copilot disable",
+    group = vimrc_group,
+})
+
 local highlight_group = vim.api.nvim_create_augroup("Highlight", { clear = true })
 
 vim.api.nvim_create_autocmd("TextYankPost", {

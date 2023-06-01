@@ -35,6 +35,7 @@ M.setup = function()
         "dockerls",
         "golangci_lint_ls",
         "rnix",
+        "pyright",
     })
 
     require("lspconfig").lua_ls.setup(lsp.nvim_lua_ls())
@@ -188,7 +189,6 @@ M.setup = function()
     null_ls.setup({
         sources = {
             null_ls.builtins.formatting.black,
-            null_ls.builtins.formatting.isort,
             null_ls.builtins.formatting.stylua,
             null_ls.builtins.diagnostics.mypy,
         },
