@@ -21,11 +21,13 @@ M.setup = function()
 
         local opts = { noremap = true, silent = true }
         vim.keymap.set("n", "K", "<cmd>Lspsaga hover_doc<CR>", opts)
+        vim.keymap.set("n", "gd", "<cmd>Lspsaga goto_definition<CR>", opts)
         vim.keymap.set("n", "gr", "<cmd>Lspsaga lsp_finder<CR>", opts)
         vim.keymap.set("n", "gR", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
         vim.keymap.set("n", "gl", "<cmd>lua vim.diagnostic.open_float()<cr>", opts)
         vim.keymap.set("n", "[d", "<cmd>lua vim.diagnostic.goto_prev()<cr>", opts)
         vim.keymap.set("n", "]d", "<cmd>lua vim.diagnostic.goto_next()<cr>", opts)
+        vim.keymap.set("n", "<leader>e", "<cmd>lua vim.diagnostic.open_float()<CR>", opts)
     end)
 
     lsp.setup_servers({
@@ -175,10 +177,10 @@ M.setup = function()
     lsp.format_on_save({
         format_opts = {
             async = false,
-            timeout_ms = 10000,
+            timeout_ms = 1000,
         },
         servers = {
-            ["null-ls"] = { "lua", "python" },
+            ["null-ls"] = { "lua" },
         },
     })
 
