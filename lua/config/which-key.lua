@@ -134,7 +134,7 @@ local M = {
                 "Open toggle terminal",
             },
             ['"'] = {
-                "<cmd>execute 'terminal' | let b:term_type = 'wind' | startinsert <CR>",
+                "<cmd>tabnew | term <CR>",
                 "Open terminal",
             },
             ["w"] = { "<cmd>w!<cr>", "Save" },
