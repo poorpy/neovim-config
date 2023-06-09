@@ -1,6 +1,6 @@
 repos:
 - repo: https://github.com/JohnnyMorganz/StyLua
-  rev: v0.17.0
+  rev: v0.17.1
   hooks:
     - id: stylua # or stylua-system / stylua-github
       args: [--indent-type, Spaces, --column-width, "100"]

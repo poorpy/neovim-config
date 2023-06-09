@@ -21,6 +21,13 @@ return require("packer").startup(function(use)
     -- jinja2 syntax
     use("Glench/Vim-Jinja2-Syntax")
 
+    use({
+        "numToStr/Comment.nvim",
+        config = function()
+            require("Comment").setup()
+        end,
+    })
+
     -- Markdown preview {{{
     use({
         "iamcco/markdown-preview.nvim",
@@ -67,7 +74,6 @@ return require("packer").startup(function(use)
         branch = "stable",
         config = function()
             require("config.mini.pairs").setup()
-            require("config.mini.comment").setup()
         end,
     })
     -- }}}
