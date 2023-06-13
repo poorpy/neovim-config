@@ -4,7 +4,7 @@ return require("packer").startup(function(use)
     use("nvim-lua/plenary.nvim")
 
     -- colorscheme
-    use("tyrannicaltoucan/vim-deep-space")
+    use("AlexvZyl/nordic.nvim")
 
     -- save as root
     use("lambdalisue/suda.vim")
