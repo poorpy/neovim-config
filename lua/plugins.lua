@@ -185,10 +185,9 @@ return require("packer").startup(function(use)
 
     -- nicer lsp ui
     use({
-        "glepnir/lspsaga.nvim",
+        "nvimdev/lspsaga.nvim",
         opt = true,
         branch = "main",
-        event = "LspAttach",
         config = function()
             require("lspsaga").setup({})
         end,
