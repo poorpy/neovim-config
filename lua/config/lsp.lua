@@ -38,6 +38,8 @@ M.setup = function()
         "dockerls",
         "rnix",
         "pyright",
+        "tsserver",
+        "svelte",
     })
 
     require("lspconfig").lua_ls.setup(lsp.nvim_lua_ls())

@@ -5,18 +5,18 @@ local opts = { noremap = true, silent = true }
 vim.g.mapleader = " "
 
 -- user alt + hjkl to switch focused split
-map("t", "<A-h>", "<C-\\><C-N><C-w>h", opts)
-map("t", "<A-j>", "<C-\\><C-N><C-w>j", opts)
-map("t", "<A-k>", "<C-\\><C-N><C-w>k", opts)
-map("t", "<A-l>", "<C-\\><C-N><C-w>l", opts)
-map("i", "<A-h>", "<C-\\><C-N><C-w>h", opts)
-map("i", "<A-j>", "<C-\\><C-N><C-w>j", opts)
-map("i", "<A-k>", "<C-\\><C-N><C-w>k", opts)
-map("i", "<A-l>", "<C-\\><C-N><C-w>l", opts)
-map("n", "<A-h>", "<C-w>h", opts)
-map("n", "<A-j>", "<C-w>j", opts)
-map("n", "<A-k>", "<C-w>k", opts)
-map("n", "<A-l>", "<C-w>l", opts)
+map("t", "<C-h>", "<C-\\><C-N><C-w>h", opts)
+map("t", "<C-j>", "<C-\\><C-N><C-w>j", opts)
+map("t", "<C-k>", "<C-\\><C-N><C-w>k", opts)
+map("t", "<C-l>", "<C-\\><C-N><C-w>l", opts)
+map("i", "<C-h>", "<C-\\><C-N><C-w>h", opts)
+map("i", "<C-j>", "<C-\\><C-N><C-w>j", opts)
+map("i", "<C-k>", "<C-\\><C-N><C-w>k", opts)
+map("i", "<C-l>", "<C-\\><C-N><C-w>l", opts)
+map("n", "<C-h>", "<C-w>h", opts)
+map("n", "<C-j>", "<C-w>j", opts)
+map("n", "<C-k>", "<C-w>k", opts)
+map("n", "<C-l>", "<C-w>l", opts)
 
 -- use alt + shift + jk to swap tabs
 map("t", "<A-J>", "<C-\\><C-N>gT", opts)
