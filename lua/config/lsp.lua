@@ -22,7 +22,7 @@ M.setup = function()
         local opts = { noremap = true, silent = true }
         vim.keymap.set("n", "K", "<cmd>Lspsaga hover_doc<CR>", opts)
         vim.keymap.set("n", "gd", "<cmd>Lspsaga goto_definition<CR>", opts)
-        vim.keymap.set("n", "gr", "<cmd>Lspsaga lsp_finder<CR>", opts)
+        vim.keymap.set("n", "gr", "<cmd>Lspsaga finder<CR>", opts)
         vim.keymap.set("n", "gR", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
         vim.keymap.set("n", "gt", "<cmd>Lspsaga goto_type_definition<CR>", opts)
         vim.keymap.set("n", "gl", "<cmd>lua vim.diagnostic.open_float()<cr>", opts)
@@ -182,7 +182,7 @@ M.setup = function()
             timeout_ms = 1000,
         },
         servers = {
-            ["null-ls"] = { "lua" },
+            ["null-ls"] = { "lua", "typescript" },
         },
     })
 
@@ -196,6 +196,8 @@ M.setup = function()
             null_ls.builtins.formatting.stylua,
             null_ls.builtins.diagnostics.mypy,
             null_ls.builtins.diagnostics.golangci_lint,
+            null_ls.builtins.diagnostics.eslint,
+            null_ls.builtins.formatting.prettier,
         },
     })
 end

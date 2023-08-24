@@ -186,8 +186,7 @@ return require("packer").startup(function(use)
     -- nicer lsp ui
     use({
         "nvimdev/lspsaga.nvim",
-        opt = true,
-        branch = "main",
+        after = "nvim-lspconfig",
         config = function()
             require("lspsaga").setup({})
         end,
