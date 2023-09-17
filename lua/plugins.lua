@@ -28,11 +28,44 @@ return require("packer").startup(function(use)
         end,
     })
 
+    -- neorg {{{
+    use({
+        "nvim-neorg/neorg",
+        config = function()
+            require("neorg").setup({
+                load = {
+                    ["core.defaults"] = {}, -- Loads default behaviour
+                    ["core.concealer"] = {}, -- Adds pretty icons to your documents
+                    ["core.dirman"] = { -- Manages Neorg workspaces
+                        config = {
+                            workspaces = {
+                                notes = "~/notes",
+                            },
+                        },
+                    },
+                },
+            })
+        end,
+        run = ":Neorg sync-parsers",
+        requires = "nvim-lua/plenary.nvim",
+    })
+    -- }}}
+
     -- Markdown preview {{{
     use({
         "iamcco/markdown-preview.nvim",
         run = function()
             vim.fn["mkdp#util#install"]()
+        end,
+    })
+    -- }}}
+
+    -- Plant UML preview {{{
+    use({
+        "https://gitlab.com/itaranto/plantuml.nvim",
+        tag = "*",
+        config = function()
+            require("plantuml").setup()
         end,
     })
     -- }}}

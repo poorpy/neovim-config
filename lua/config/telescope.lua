@@ -56,7 +56,18 @@ M.config = {
         -- 	msg_bg_fillchar = "╱",
         -- },
     },
-    pickers = { find_files = { hidden = true } },
+    pickers = {
+        find_files = {
+            find_command = {
+                "fd",
+                ".",
+                "--type",
+                "file",
+                "--hidden",
+                "--strip-cwd-prefix",
+            },
+        },
+    },
     extensions = {
         fzf = {
             fuzzy = true, -- false will only do exact matching

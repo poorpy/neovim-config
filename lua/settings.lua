@@ -46,6 +46,9 @@ vim.o.termguicolors = true
 -- set latex as default tex flavor
 vim.g.texflavor = "latex"
 
+-- use zathura for LaTeX preview
+vim.g.vimtex_view_general_viewer = "zathura"
+
 -- use dark background
 vim.opt.background = "dark"
 
