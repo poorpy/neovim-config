@@ -40,6 +40,7 @@ M.setup = function()
         "pyright",
         "tsserver",
         "svelte",
+        "zls",
     })
 
     require("lspconfig").lua_ls.setup(lsp.nvim_lua_ls())
@@ -84,6 +85,7 @@ M.setup = function()
     })
 
     require("lspconfig").jsonls.setup({
+        cmd = { "json-languageserver", "--stdio" },
         init_options = {
             provideFormatter = false,
         },
@@ -108,8 +110,6 @@ M.setup = function()
             fallback()
         end
     end
-
-    require("copilot_cmp").setup()
 
     -- cmp setup {{{
     cmp.setup({

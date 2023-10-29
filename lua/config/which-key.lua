@@ -2,18 +2,17 @@ local M = {
     config = {
         setup = {
             plugins = {
-                marks = true, -- shows a list of your marks on ' and `
-                registers = true, -- shows your registers on " in NORMAL or <C-r> in INSERT mode
+                marks = true,
+                registers = true,
                 presets = {
-                    -- operators = true, -- adds help for operators like d, y, ...
-                    motions = true, -- adds help for motions
-                    text_objects = true, -- help for text objects triggered after entering an operator
-                    windows = true, -- default bindings on <c-w>
-                    nav = true, -- misc bindings to work with windows
-                    z = true, -- bindings for folds, spelling and others prefixed with z
-                    g = true, -- bindings for prefixed with g
+                    motions = true,
+                    text_objects = true,
+                    windows = true,
+                    nav = true,
+                    z = true,
+                    g = true,
                 },
-                spelling = { enabled = true, suggestions = 20 }, -- use which-key for spelling hints
+                spelling = { enabled = true, suggestions = 20 },
             },
             -- operators = { gc = "Comments" },
             popup_mappings = {
@@ -129,27 +128,7 @@ local M = {
                 "<cmd>lua vim.lsp.buf.format()<cr>",
                 "Format file using lsp",
             },
-            ["'"] = {
-                "<cmd>1ToggleTerm size=15 direction=horizontal<cr>",
-                "Open toggle terminal",
-            },
-            ['"'] = {
-                "<cmd>tabnew | term <CR>",
-                "Open terminal",
-            },
-            ["w"] = { "<cmd>w!<cr>", "Save" },
-            ["W"] = { "<cmd>SudaWrite<cr>", "Sudo Save" },
-            ["q"] = { "<cmd>q!<cr>", "Quit" },
             ["n"] = { "<cmd>Oil<cr>", "File explorer" },
-            ["f"] = { "<cmd>Telescope live_grep_args<cr>", "Grep" },
-            ["F"] = { "<cmd>Telescope file_browser<cr>", "File browser" },
-            ["p"] = {
-                name = "Packer",
-                ["c"] = { "<cmd>PackerCompile<cr>", "Compile" },
-                ["i"] = { "<cmd>PackerInstall<cr>", "Install" },
-                ["s"] = { "<cmd>PackerSync<cr>", "Sync" },
-                ["u"] = { "<cmd>PackerUpdate<cr>", "Update" },
-            },
             ["d"] = {
                 name = "Debug",
                 ["R"] = { "<cmd>lua require'dap'.run_to_cursor()<cr>", "Run to Cursor" },
@@ -250,10 +229,6 @@ local M = {
                     ["d"] = { '<cmd>lua require"gitsigns".toggle_deleted()<cr>', "Deleted" },
                     ["h"] = { '<cmd>lua require"gitsigns".toggle_linehl()<cr>', "Line highlight" },
                 },
-                ["y"] = {
-                    '<cmd>lua require"gitlinker".get_buf_range_url("n", {action_callback = require"gitlinker.actions".copy_to_clipboard})<cr>',
-                    "Copy link to clipboard",
-                },
                 ["p"] = {
                     "<cmd>Git push<cr>",
                     "Git push",
@@ -300,10 +275,6 @@ local M = {
                     "Prev Diagnostic",
                 },
                 ["r"] = { "<cmd>Lspsaga rename<cr>", "Rename" },
-                ["o"] = {
-                    "<cmd>LSoutlineToggle<cr>",
-                    "Outline toggle",
-                },
                 ["s"] = {
                     "<cmd>Telescope lsp_document_symbols<cr>",
                     "Document Symbols",
@@ -315,27 +286,28 @@ local M = {
                 ["t"] = {
                     name = "Toggle diagnostic",
                     ["s"] = {
-                        "<cmd>vim.diagnostic.show(nil, 0)<cr>",
+                        "<cmd>lua vim.diagnostic.show(nil, 0)<cr>",
                         "Show diagnostic for buffer",
                     },
                     ["h"] = {
-                        "<cmd>vim.diagnostic.show(nil, 0)<cr>",
+                        "<cmd>lua vim.diagnostic.show(nil, 0)<cr>",
                         "Hide diagnostic for buffer",
                     },
                     ["S"] = {
-                        "<cmd>vim.diagnostic.show()<cr>",
+                        "<cmd>lua vim.diagnostic.show()<cr>",
                         "Show diagnostic for all buffers",
                     },
                     ["H"] = {
-                        "<cmd>vim.diagnostic.hide()<cr>",
+                        "<cmd>lua vim.diagnostic.hide()<cr>",
                         "Hide diagnostic for all buffers",
                     },
                 },
             },
-            ["m"] = {
-                name = "Tasks",
-                ["g"] = { "<cmd>GoTestFunc<cr>", "Run go test function" },
-            },
+            -- should go into localleader
+            -- ["m"] = {
+            --     name = "Tasks",
+            --     ["g"] = { "<cmd>GoTestFunc<cr>", "Run go test function" },
+            -- },
             ["s"] = {
                 name = "Search",
                 ["b"] = { "<cmd>Telescope buffers<cr>", "Find buffer" },

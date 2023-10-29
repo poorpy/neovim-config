@@ -13,7 +13,16 @@ return require("packer").startup(function(use)
     use("kyazdani42/nvim-web-devicons")
 
     -- better diff mode
-    use("sindrets/diffview.nvim")
+    use({
+        "sindrets/diffview.nvim",
+        config = function()
+            require("diffview").setup({
+                merge_tool = {
+                    layout = "diff3_mixed",
+                },
+            })
+        end,
+    })
 
     -- LaTex syntax and preview
     use("lervag/vimtex")
@@ -41,6 +50,7 @@ return require("packer").startup(function(use)
                             workspaces = {
                                 notes = "~/notes",
                             },
+                            default_workspace = "notes",
                         },
                     },
                 },
@@ -60,12 +70,21 @@ return require("packer").startup(function(use)
     })
     -- }}}
 
-    -- Plant UML preview {{{
+    -- Plant UML syntax and preview {{{
+    use("aklt/plantuml-syntax")
     use({
         "https://gitlab.com/itaranto/plantuml.nvim",
         tag = "*",
         config = function()
-            require("plantuml").setup()
+            require("plantuml").setup({
+                renderer = {
+                    type = "imv",
+                    options = {
+                        dark_mode = true,
+                    },
+                },
+                render_on_write = true,
+            })
         end,
     })
     -- }}}
@@ -147,26 +166,6 @@ return require("packer").startup(function(use)
     })
     -- }}}
 
-    -- better built-in terminal {{{
-    use({
-        "akinsho/nvim-toggleterm.lua",
-        config = function()
-            require("config.terminal").setup()
-        end,
-    })
-    use({
-        "willothy/flatten.nvim",
-        config = function()
-            require("flatten").setup({
-                window = {
-                    open = "tab",
-                    focus = "first",
-                },
-            })
-        end,
-    })
-    -- }}}
-
     -- keybinds with explanation {{{
     use({
         "folke/which-key.nvim",
@@ -192,8 +191,34 @@ return require("packer").startup(function(use)
                 event = "InsertEnter",
                 config = function()
                     require("copilot").setup({
-                        suggestion = { enabled = false },
-                        panel = { enabled = false },
+                        panel = {
+                            enabled = true,
+                            auto_refresh = false,
+                            keymap = {
+                                jump_prev = "[[",
+                                jump_next = "]]",
+                                accept = "<CR>",
+                                refresh = "gr",
+                                open = "<M-CR>",
+                            },
+                            layout = {
+                                position = "bottom",
+                                ratio = 0.4,
+                            },
+                        },
+                        suggestion = {
+                            enabled = true,
+                            auto_trigger = false,
+                            debounce = 75,
+                            keymap = {
+                                accept = "<M-l>",
+                                accept_word = false,
+                                accept_line = false,
+                                next = "<M-]>",
+                                prev = "<M-[>",
+                                dismiss = "<C-]>",
+                            },
+                        },
                     })
                 end,
             },
@@ -204,7 +229,6 @@ return require("packer").startup(function(use)
             { "hrsh7th/cmp-path" },
             { "hrsh7th/cmp-nvim-lsp" },
             { "hrsh7th/cmp-nvim-lua" },
-            { "zbirenbaum/copilot-cmp" },
             { "saadparwaiz1/cmp_luasnip" },
 
             -- Snippets
@@ -241,6 +265,7 @@ return require("packer").startup(function(use)
             })
         end,
     })
+    -- }}}
 
     -- Fuzzy filtering {{{
     use({ "nvim-telescope/telescope-file-browser.nvim" })
