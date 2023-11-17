@@ -10,7 +10,7 @@ return require("packer").startup(function(use)
     use("lambdalisue/suda.vim")
 
     -- icons
-    use("kyazdani42/nvim-web-devicons")
+    use("nvim-tree/nvim-web-devicons")
 
     -- better diff mode
     use({
@@ -185,45 +185,6 @@ return require("packer").startup(function(use)
             { "neovim/nvim-lspconfig" },
             { "onsails/lspkind-nvim" },
             { "jose-elias-alvarez/null-ls.nvim" },
-
-            -- Copilot
-            {
-                "zbirenbaum/copilot.lua",
-                cmd = "Copilot",
-                event = "InsertEnter",
-                config = function()
-                    require("copilot").setup({
-                        panel = {
-                            enabled = true,
-                            auto_refresh = false,
-                            keymap = {
-                                jump_prev = "[[",
-                                jump_next = "]]",
-                                accept = "<CR>",
-                                refresh = "gr",
-                                open = "<M-CR>",
-                            },
-                            layout = {
-                                position = "bottom",
-                                ratio = 0.4,
-                            },
-                        },
-                        suggestion = {
-                            enabled = true,
-                            auto_trigger = false,
-                            debounce = 75,
-                            keymap = {
-                                accept = "<M-l>",
-                                accept_word = false,
-                                accept_line = false,
-                                next = "<M-]>",
-                                prev = "<M-[>",
-                                dismiss = "<C-]>",
-                            },
-                        },
-                    })
-                end,
-            },
 
             -- Autocompletion
             { "hrsh7th/nvim-cmp" },
