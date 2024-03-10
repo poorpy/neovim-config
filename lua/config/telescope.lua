@@ -1,107 +1,52 @@
 local M = {}
 
-M.config = {
-    defaults = {
-        path_display = { truncate = 3 },
-        mappings = {
-            i = {
-                ["<esc>"] = require("telescope.actions").close,
-                ["<S-Up>"] = require("telescope.actions").preview_scrolling_up,
-                ["<S-Down>"] = require("telescope.actions").preview_scrolling_down,
-                ["<PageDown>"] = require("telescope.actions").cycle_history_next,
-                ["<PageUp>"] = require("telescope.actions").cycle_history_prev,
-            },
-        },
-        vimgrep_arguments = {
-            "rg",
-            "--color=never",
-            "--no-heading",
-            "--with-filename",
-            "--line-number",
-            "--column",
-            "--smart-case",
-            "--hidden",
-            "--trim",
-            "--glob=!.git/",
-            "--glob=!package-lock.json",
-        },
-        prompt_prefix = "❯ ",
-        selection_caret = "❯ ",
-        entry_prefix = "  ",
-        initial_mode = "insert",
-        selection_strategy = "reset",
-        sorting_strategy = "descending",
-        scroll_strategy = "cycle",
-        layout_strategy = "horizontal",
-        layout_config = {
-            prompt_position = "bottom",
-            horizontal = { preview_width = 0.6, results_width = 0.8 },
-            width = 0.95,
-            height = 0.95,
-            preview_cutoff = 120,
-        },
-        file_ignore_patterns = { "node_modules", "^.git/" },
-        winblend = 0,
-        border = {},
-        borderchars = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" },
-        color_devicons = true,
-        file_previewer = require("telescope.previewers").vim_buffer_cat.new,
-        grep_previewer = require("telescope.previewers").vim_buffer_vimgrep.new,
-        qflist_previewer = require("telescope.previewers").vim_buffer_qflist.new,
-        -- preview = {
-        -- 	check_mime_type = true,
-        -- 	filesize_limit = 0.5,
-        -- 	timeout = 200,
-        -- 	treesitter = true,
-        -- 	msg_bg_fillchar = "╱",
-        -- },
-    },
-    pickers = {
-        find_files = {
-            find_command = {
-                "fd",
-                ".",
-                "--type",
-                "file",
-                "--hidden",
-                "--strip-cwd-prefix",
-            },
-        },
-    },
-    extensions = {
-        fzf = {
-            fuzzy = true, -- false will only do exact matching
-            override_generic_sorter = true, -- override the generic sorter
-            override_file_sorter = true, -- override the file sorter
-            case_mode = "smart_case", -- or "ignore_case" or "respect_case"
-            -- the default case_mode is "smart_case"
-        },
-    },
-}
-
-M.grep_string_visual = function()
-    local builtin = require("telescope.builtin")
-    local visual_selection = function()
-        local save_previous = vim.fn.getreg("a")
-        vim.api.nvim_command('silent! normal! "ay')
-        local selection = vim.fn.trim(vim.fn.getreg("a"))
-        vim.fn.setreg("a", save_previous)
-        return vim.fn.substitute(selection, [[\n]], [[\\n]], "g")
-    end
-    builtin.live_grep({
-        default_text = visual_selection(),
-    })
-end
-
 M.setup = function()
-    local status_ok, telescope = pcall(require, "telescope")
-    if not status_ok then
-        return
-    end
-    telescope.setup(M.config)
-    telescope.load_extension("file_browser")
-    telescope.load_extension("live_grep_args")
-    telescope.load_extension("fzf")
+    require("telescope").setup({
+        extensions = {
+            ["ui-select"] = {
+                require("telescope.themes").get_dropdown(),
+            },
+        },
+    })
+
+    -- load plugins if present
+    pcall(require("telescope").load_extension, "fzf")
+    pcall(require("telescope").load_extension, "ui-select")
+
+    local builtin = require("telescope.builtin")
+    vim.keymap.set("n", "<leader>sh", builtin.help_tags, { desc = "[S]earch [H]elp" })
+    vim.keymap.set("n", "<leader>sk", builtin.keymaps, { desc = "[S]earch [K]eymaps" })
+    vim.keymap.set("n", "<leader>sf", builtin.find_files, { desc = "[S]earch [F]iles" })
+    vim.keymap.set("n", "<leader>ss", builtin.builtin, { desc = "[S]earch [S]elect Telescope" })
+    vim.keymap.set("n", "<leader>sw", builtin.grep_string, { desc = "[S]earch current [W]ord" })
+    vim.keymap.set("n", "<leader>sg", builtin.live_grep, { desc = "[S]earch by [G]rep" })
+    vim.keymap.set("n", "<leader>sd", builtin.diagnostics, { desc = "[S]earch [D]iagnostics" })
+    vim.keymap.set("n", "<leader>sr", builtin.resume, { desc = "[S]earch [R]esume" })
+    vim.keymap.set(
+        "n",
+        "<leader>s.",
+        builtin.oldfiles,
+        { desc = '[S]earch Recent Files ("." for repeat)' }
+    )
+    vim.keymap.set("n", "<leader>sb", builtin.buffers, { desc = "[ ] Find existing buffers" })
+
+    vim.keymap.set("n", "<leader>/", function()
+        builtin.current_buffer_fuzzy_find(require("telescope.themes").get_dropdown({
+            winblend = 10,
+            previewer = false,
+        }))
+    end, { desc = "[/] Fuzzily search in current buffer" })
+
+    vim.keymap.set("n", "<leader>s/", function()
+        builtin.live_grep({
+            grep_open_files = true,
+            prompt_title = "Live Grep in Open Files",
+        })
+    end, { desc = "[S]earch [/] in Open Files" })
+
+    vim.keymap.set("n", "<leader>sn", function()
+        builtin.find_files({ cwd = vim.fn.stdpath("config") })
+    end, { desc = "[S]earch [N]eovim files" })
 end
 
 return M

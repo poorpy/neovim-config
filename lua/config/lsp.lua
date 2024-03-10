@@ -14,25 +14,29 @@ M.setup = function()
     local lsp = require("lsp-zero").preset({})
 
     lsp.on_attach(function(_, bufnr)
-        lsp.default_keymaps({
-            buffer = bufnr,
-            omit = { "K", "gr" },
-        })
+        local map = function(keys, func, desc)
+            vim.keymap.set(
+                "n",
+                keys,
+                func,
+                { buffer = bufnr, noremap = true, silent = true, desc = "LSP: " .. desc }
+            )
+        end
 
-        local opts = { noremap = true, silent = true }
-        vim.keymap.set("n", "K", "<cmd>Lspsaga hover_doc<CR>", opts)
-        vim.keymap.set("n", "gd", "<cmd>Lspsaga goto_definition<CR>", opts)
-        vim.keymap.set("n", "gr", "<cmd>Lspsaga finder<CR>", opts)
-        vim.keymap.set("n", "gR", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
-        vim.keymap.set("n", "gt", "<cmd>Lspsaga goto_type_definition<CR>", opts)
-        vim.keymap.set("n", "gl", "<cmd>lua vim.diagnostic.open_float()<cr>", opts)
-        vim.keymap.set("n", "[d", "<cmd>lua vim.diagnostic.goto_prev()<cr>", opts)
-        vim.keymap.set("n", "]d", "<cmd>lua vim.diagnostic.goto_next()<cr>", opts)
-        vim.keymap.set("n", "<leader>e", "<cmd>lua vim.diagnostic.open_float()<CR>", opts)
+        local builtin = require("telescope.builtin")
+        map("gd", builtin.lsp_definitions, "[G]oto [D]efinition")
+        map("gr", builtin.lsp_references, "[G]oto [R]eferences")
+        map("gI", builtin.lsp_implementations, "[G]oto [I]mplementation")
+        map("<leader>D", builtin.lsp_type_definitions, "Type [D]efinition")
+        map("<leader>ds", builtin.lsp_document_symbols, "[D]ocument [S]ymbols")
+        map("<leader>ws", builtin.lsp_dynamic_workspace_symbols, "[W]orkspace [S]ymbols")
+        map("<leader>rn", vim.lsp.buf.rename, "[R]e[n]ame")
+        map("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction")
+        map("K", vim.lsp.buf.hover, "Hover Documentation")
+        map("gD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
     end)
 
     lsp.setup_servers({
-        "rust_analyzer",
         "texlab",
         "ccls",
         "dockerls",
@@ -44,6 +48,18 @@ M.setup = function()
     })
 
     require("lspconfig").lua_ls.setup(lsp.nvim_lua_ls())
+
+    -- rust_analyzer {{{
+    require("lspconfig").rust_analyzer.setup({
+        settings = {
+            ["rust-analyzer"] = {
+                checkOnSave = {
+                    command = "clippy",
+                },
+            },
+        },
+    })
+    -- }}}
 
     -- gopls {{{
     require("lspconfig").gopls.setup({
@@ -196,7 +212,6 @@ M.setup = function()
             null_ls.builtins.formatting.stylua,
             null_ls.builtins.diagnostics.mypy,
             null_ls.builtins.diagnostics.golangci_lint,
-            null_ls.builtins.diagnostics.eslint,
             null_ls.builtins.formatting.prettier,
         },
     })

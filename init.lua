@@ -1,6 +1,7 @@
 require("keybinds")
 require("settings")
-require("plugins")
+require("lazypath")
+require("lazyplugins")
 require("autocmds")
 
 vim.cmd([[ colorscheme nordfox ]])

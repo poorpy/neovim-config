@@ -25,13 +25,6 @@ vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
     group = vimrc_group,
 })
 
-vim.api.nvim_create_autocmd("BufWritePost", {
-    desc = "Source new nvim config file",
-    pattern = { vim.fn.stdpath("config") .. "/**/*.lua" },
-    command = "source <afile>",
-    group = vimrc_group,
-})
-
 vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
     desc = "Recognize .yml files as ansible config",
     pattern = { "*/ansible/*.yml" },
@@ -43,13 +36,6 @@ vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
     desc = "Recognize yaml jinja2 templates",
     pattern = { "*.(yaml|yml).(j2|jinja2)" },
     command = "setlocal filetype=jinja.yaml",
-    group = vimrc_group,
-})
-
-vim.api.nvim_create_autocmd({ "VimEnter" }, {
-    desc = "Disable Copilot by default",
-    pattern = { "*" },
-    command = "Copilot disable",
     group = vimrc_group,
 })
 
