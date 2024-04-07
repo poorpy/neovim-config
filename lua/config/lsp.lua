@@ -32,6 +32,9 @@ M.setup = function()
         map("<leader>ws", builtin.lsp_dynamic_workspace_symbols, "[W]orkspace [S]ymbols")
         map("<leader>rn", vim.lsp.buf.rename, "[R]e[n]ame")
         map("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction")
+        map("<leader>ce", vim.diagnostic.open_float, "[C]ode [E]rror")
+        map("<leader>cf", vim.lsp.buf.format, "[C]ode [F]ormat")
+        map("<leader><leader>", vim.lsp.buf.format, "[C]ode [F]ormat")
         map("K", vim.lsp.buf.hover, "Hover Documentation")
         map("gD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
     end)
@@ -42,9 +45,8 @@ M.setup = function()
         "dockerls",
         "rnix",
         "pyright",
-        "tsserver",
-        "svelte",
         "zls",
+        "ocamllsp",
     })
 
     require("lspconfig").lua_ls.setup(lsp.nvim_lua_ls())
