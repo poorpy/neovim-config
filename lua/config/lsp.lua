@@ -43,8 +43,9 @@ M.setup = function()
         "texlab",
         "ccls",
         "dockerls",
-        "rnix",
+        "nixd",
         "pyright",
+        "tsserver",
         "zls",
         "ocamllsp",
     })
@@ -97,6 +98,7 @@ M.setup = function()
     -- }}}
 
     require("lspconfig").html.setup({
+        cmd = { "html-languageserver", "--stdio" },
         init_options = {
             provideFormatter = false,
         },
@@ -200,7 +202,7 @@ M.setup = function()
             timeout_ms = 1000,
         },
         servers = {
-            ["null-ls"] = { "lua", "typescript" },
+            ["null-ls"] = { "lua", "typescript", "nix" },
         },
     })
 
@@ -215,6 +217,7 @@ M.setup = function()
             null_ls.builtins.diagnostics.mypy,
             null_ls.builtins.diagnostics.golangci_lint,
             null_ls.builtins.formatting.prettier,
+            null_ls.builtins.formatting.nixpkgs_fmt,
         },
     })
 end
