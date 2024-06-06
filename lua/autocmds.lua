@@ -13,7 +13,7 @@ vim.api.nvim_create_autocmd("BufWritePre", {
     desc = "Fix imports before save",
     pattern = { "*.go", "*.rs" },
     callback = function()
-        vim.lsp.buf.code_action({ context = { only = { "source.organizeImports" } }, apply = true })
+        vim.lsp.buf.code_action { context = { only = { "source.organizeImports" } }, apply = true }
     end,
     group = vimrc_group,
 })
@@ -44,7 +44,7 @@ local highlight_group = vim.api.nvim_create_augroup("Highlight", { clear = true 
 vim.api.nvim_create_autocmd("TextYankPost", {
     desc = "Highlight on yank",
     callback = function()
-        vim.highlight.on_yank({ higrou = "IncSearch", timeout = 400 })
+        vim.highlight.on_yank { higrou = "IncSearch", timeout = 400 }
     end,
     group = highlight_group,
 })
