@@ -6,6 +6,7 @@ M.setup = function()
     lsp.setup_servers {
         "zls",
         "nixd",
+        "ruff",
         "lua_ls",
         "pyright",
         "rust_analyzer",
