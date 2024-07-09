@@ -6,7 +6,6 @@ M.setup = function()
     lsp.setup_servers {
         "zls",
         "ccls",
-        -- "clangd",
         "nixd",
         "ruff",
         "lua_ls",
@@ -28,6 +27,7 @@ M.setup = function()
 
     -- gopls {{{
     require("lspconfig").gopls.setup {
+        cmd = { "gopls" },
         flags = {
             allow_incremental_sync = true,
             debounce_text_changes = 500,
