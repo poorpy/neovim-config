@@ -84,6 +84,14 @@ M.setup = function()
                 { buffer = bufnr, noremap = true, silent = true, desc = "LSP: " .. desc }
             )
         end
+        local imap = function(keys, func, desc)
+            vim.keymap.set(
+                "i",
+                keys,
+                func,
+                { buffer = bufnr, noremap = true, silent = true, desc = "LSP: " .. desc }
+            )
+        end
 
         local builtin = require "telescope.builtin"
         map("gd", builtin.lsp_definitions, "[G]oto [D]efinition")
@@ -99,6 +107,7 @@ M.setup = function()
         map("<leader><leader>", vim.lsp.buf.format, "[C]ode [F]ormat")
         map("K", vim.lsp.buf.hover, "Hover Documentation")
         map("gD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
+        imap("<C-h>", vim.lsp.buf.signature_help, "Signature help")
     end)
     -- }}}
 
