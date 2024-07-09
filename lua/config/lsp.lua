@@ -5,6 +5,8 @@ M.setup = function()
 
     lsp.setup_servers {
         "zls",
+        "ccls",
+        -- "clangd",
         "nixd",
         "ruff",
         "lua_ls",
@@ -58,14 +60,14 @@ M.setup = function()
     -- }}}
 
     require("lspconfig").html.setup {
-        cmd = { "html-languageserver", "--stdio" },
+        cmd = { "vscode-html-language-server", "--stdio" },
         init_options = {
             provideFormatter = false,
         },
     }
 
     require("lspconfig").jsonls.setup {
-        cmd = { "json-languageserver", "--stdio" },
+        cmd = { "vscode-json-language-server", "--stdio" },
         init_options = {
             provideFormatter = false,
         },
