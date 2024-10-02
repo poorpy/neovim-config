@@ -8,6 +8,7 @@ M.setup = function()
         "ccls",
         "nixd",
         "ruff",
+        "templ",
         "lua_ls",
         "pyright",
         "rust_analyzer",
