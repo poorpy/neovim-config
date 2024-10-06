@@ -61,11 +61,25 @@ M.setup = function()
     }
     -- }}}
 
+    require("lspconfig").tailwindcss.setup {
+        cmd = { "npx", "@tailwindcss/language-server", "--stdio" },
+        filetypes = { "templ", "astro", "javascript", "typescript", "react" },
+        settings = {
+            tailwindCSS = {
+                includeLanguages = {
+                    templ = "html",
+                },
+            },
+        },
+    }
+
     require("lspconfig").html.setup {
         cmd = { "vscode-html-language-server", "--stdio" },
         init_options = {
             provideFormatter = false,
         },
+
+        filetypes = { "html", "templ" },
     }
 
     require("lspconfig").jsonls.setup {
@@ -74,6 +88,8 @@ M.setup = function()
             provideFormatter = false,
         },
     }
+
+    vim.lsp.set_log_level(vim.log.levels.DEBUG)
 
     -- lsp attach {{{
 

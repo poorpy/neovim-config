@@ -24,6 +24,7 @@ M.setup = function()
         builtin.find_files {
             find_command = {
                 "rg",
+                "-uuu",
                 "--files",
                 "--color",
                 "never",
