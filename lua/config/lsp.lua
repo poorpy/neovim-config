@@ -1,9 +1,16 @@
 local M = {}
 
 M.setup = function()
-    local lsp = require "lsp-zero"
+    vim.opt.completeopt = { "menu", "menuone", "noselect" }
 
-    lsp.setup_servers {
+    local lspconfig_defaults = require("lspconfig").util.default_config
+    lspconfig_defaults.capabilities = vim.tbl_deep_extend(
+        "force",
+        lspconfig_defaults.capabilities,
+        require("cmp_nvim_lsp").default_capabilities()
+    )
+
+    local servers = {
         "zls",
         "ccls",
         "nixd",
@@ -14,6 +21,11 @@ M.setup = function()
         "rust_analyzer",
         "golangci_lint_ls",
     }
+
+    local lspconfig = require "lspconfig"
+    for _, server in ipairs(servers) do
+        lspconfig[server].setup {}
+    end
 
     -- rust_analyzer {{{
     require("lspconfig").rust_analyzer.setup {
@@ -92,41 +104,43 @@ M.setup = function()
     vim.lsp.set_log_level(vim.log.levels.DEBUG)
 
     -- lsp attach {{{
+    vim.api.nvim_create_autocmd("LspAttach", {
+        desc = "LSP actions",
+        callback = function(event)
+            local map = function(keys, func, desc)
+                vim.keymap.set(
+                    "n",
+                    keys,
+                    func,
+                    { buffer = event.buf, noremap = true, silent = true, desc = "LSP: " .. desc }
+                )
+            end
+            local imap = function(keys, func, desc)
+                vim.keymap.set(
+                    "i",
+                    keys,
+                    func,
+                    { buffer = event.buf, noremap = true, silent = true, desc = "LSP: " .. desc }
+                )
+            end
 
-    lsp.on_attach(function(_, bufnr)
-        local map = function(keys, func, desc)
-            vim.keymap.set(
-                "n",
-                keys,
-                func,
-                { buffer = bufnr, noremap = true, silent = true, desc = "LSP: " .. desc }
-            )
-        end
-        local imap = function(keys, func, desc)
-            vim.keymap.set(
-                "i",
-                keys,
-                func,
-                { buffer = bufnr, noremap = true, silent = true, desc = "LSP: " .. desc }
-            )
-        end
-
-        local builtin = require "telescope.builtin"
-        map("gd", builtin.lsp_definitions, "[G]oto [D]efinition")
-        map("gr", builtin.lsp_references, "[G]oto [R]eferences")
-        map("gI", builtin.lsp_implementations, "[G]oto [I]mplementation")
-        map("<leader>D", builtin.lsp_type_definitions, "Type [D]efinition")
-        map("<leader>ds", builtin.lsp_document_symbols, "[D]ocument [S]ymbols")
-        map("<leader>ws", builtin.lsp_dynamic_workspace_symbols, "[W]orkspace [S]ymbols")
-        map("<leader>rn", vim.lsp.buf.rename, "[R]e[n]ame")
-        map("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction")
-        map("<leader>ce", vim.diagnostic.open_float, "[C]ode [E]rror")
-        map("<leader>cf", vim.lsp.buf.format, "[C]ode [F]ormat")
-        map("<leader><leader>", vim.lsp.buf.format, "[C]ode [F]ormat")
-        map("K", vim.lsp.buf.hover, "Hover Documentation")
-        map("gD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
-        imap("<C-h>", vim.lsp.buf.signature_help, "Signature help")
-    end)
+            local builtin = require "telescope.builtin"
+            map("gd", builtin.lsp_definitions, "[G]oto [D]efinition")
+            map("gr", builtin.lsp_references, "[G]oto [R]eferences")
+            map("gI", builtin.lsp_implementations, "[G]oto [I]mplementation")
+            map("<leader>D", builtin.lsp_type_definitions, "Type [D]efinition")
+            map("<leader>ds", builtin.lsp_document_symbols, "[D]ocument [S]ymbols")
+            map("<leader>ws", builtin.lsp_dynamic_workspace_symbols, "[W]orkspace [S]ymbols")
+            map("<leader>rn", vim.lsp.buf.rename, "[R]e[n]ame")
+            map("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction")
+            map("<leader>ce", vim.diagnostic.open_float, "[C]ode [E]rror")
+            map("<leader>cf", vim.lsp.buf.format, "[C]ode [F]ormat")
+            map("<leader><leader>", vim.lsp.buf.format, "[C]ode [F]ormat")
+            map("K", vim.lsp.buf.hover, "Hover Documentation")
+            map("gD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
+            imap("<C-h>", vim.lsp.buf.signature_help, "Signature help")
+        end,
+    })
     -- }}}
 
     -- Autoformatting Setup

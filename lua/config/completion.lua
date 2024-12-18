@@ -9,6 +9,7 @@ local cmp = require "cmp"
 cmp.setup {
     sources = {
         { name = "nvim_lsp" },
+        { name = "nvim_lsp_signature_help" },
         { name = "luasnip", option = { use_show_condition = false } },
         { name = "path" },
         { name = "buffer" },
@@ -54,7 +55,7 @@ cmp.setup {
         end,
     },
 
-    experimental = { native_menu = false, ghost_text = { hl_group = "Comment" } },
+    experimental = { ghost_text = { hl_group = "Comment" } },
 }
 
 -- Setup up vim-dadbod

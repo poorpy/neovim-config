@@ -1,7 +1,6 @@
 return {
     {
-        "VonHeikemen/lsp-zero.nvim",
-        branch = "v3.x",
+        "neovim/nvim-lspconfig",
         dependencies = {
             { "Bilal2453/luvit-meta", lazy = true },
             {
@@ -12,7 +11,8 @@ return {
 
             { "j-hui/fidget.nvim", opts = {} },
 
-            "neovim/nvim-lspconfig",
+            "hrsh7th/nvim-cmp",
+            "hrsh7th/cmp-nvim-lsp",
 
             -- Autoformatting
             "stevearc/conform.nvim",
