@@ -7,7 +7,7 @@ M.setup = function()
     lspconfig_defaults.capabilities = vim.tbl_deep_extend(
         "force",
         lspconfig_defaults.capabilities,
-        require("cmp_nvim_lsp").default_capabilities()
+        require("blink.cmp").get_lsp_capabilities()
     )
 
     local servers = {

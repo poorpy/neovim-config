@@ -11,8 +11,7 @@ return {
 
             { "j-hui/fidget.nvim", opts = {} },
 
-            "hrsh7th/nvim-cmp",
-            "hrsh7th/cmp-nvim-lsp",
+            "saghen/blink.cmp",
 
             -- Autoformatting
             "stevearc/conform.nvim",
