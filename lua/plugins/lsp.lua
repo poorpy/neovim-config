@@ -13,8 +13,11 @@ return {
 
             "saghen/blink.cmp",
 
-            -- Autoformatting
+            -- Autoformatting & Linting
             "stevearc/conform.nvim",
+            "nvimtools/none-ls.nvim",
+            -- "mfussenegger/nvim-lint",
+            --
 
             -- Schema information
             "b0o/SchemaStore.nvim",

@@ -17,7 +17,7 @@ M.setup = function()
         "ruff",
         "templ",
         "lua_ls",
-        "pyright",
+        "terraformls",
         "rust_analyzer",
         "golangci_lint_ls",
     }
@@ -73,6 +73,19 @@ M.setup = function()
     }
     -- }}}
 
+    -- pyright {{{
+    require("lspconfig").pyright.setup {
+        settings = {
+            python = {
+                analysis = {
+                    diagnosticMode = "off",
+                    typeCheckingMode = "off",
+                },
+            },
+        },
+    }
+    -- }}}
+
     require("lspconfig").tailwindcss.setup {
         cmd = { "npx", "@tailwindcss/language-server", "--stdio" },
         filetypes = { "templ", "astro", "javascript", "typescript", "react" },
@@ -85,6 +98,7 @@ M.setup = function()
         },
     }
 
+    -- html & json {{{
     require("lspconfig").html.setup {
         cmd = { "vscode-html-language-server", "--stdio" },
         init_options = {
@@ -100,8 +114,17 @@ M.setup = function()
             provideFormatter = false,
         },
     }
+    -- }}}
 
-    vim.lsp.set_log_level(vim.log.levels.DEBUG)
+    vim.lsp.set_log_level(vim.log.levels.INFO)
+
+    local null_ls = require "null-ls"
+
+    null_ls.setup {
+        sources = {
+            null_ls.builtins.diagnostics.mypy,
+        },
+    }
 
     -- lsp attach {{{
     vim.api.nvim_create_autocmd("LspAttach", {
@@ -143,16 +166,25 @@ M.setup = function()
     })
     -- }}}
 
-    -- Autoformatting Setup
+    -- Autoformatting Setup {{{
+
+    require("conform").formatters.terraform_fmt = {
+        command = "tofu",
+    }
+
     require("conform").setup {
         formatters_by_ft = {
             lua = { "stylua" },
             go = { "goimports", "golines" },
             zig = { "zigfmt" },
+            terraform = { "terraform_fmt" },
+            hcl = { "terragrunt_hclfmt" },
+            nix = { "nixpkgs_fmt" },
         },
     }
 
     vim.api.nvim_create_autocmd("BufWritePre", {
+        pattern = "*",
         callback = function(args)
             require("conform").format {
                 bufnr = args.buf,
@@ -161,6 +193,7 @@ M.setup = function()
             }
         end,
     })
+    -- }}}
 end
 
 return M
