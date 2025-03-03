@@ -9,6 +9,13 @@ return {
                 opts = { library = { "luvit-meta/library" } },
             },
 
+            {
+                "nvim-java/nvim-java",
+                config = function()
+                    require("java").setup()
+                end,
+            },
+
             { "j-hui/fidget.nvim", opts = {} },
 
             "saghen/blink.cmp",

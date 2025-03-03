@@ -15,6 +15,7 @@ M.setup = function()
         "ccls",
         "nixd",
         "ruff",
+        "jdtls",
         "templ",
         "lua_ls",
         "terraformls",
