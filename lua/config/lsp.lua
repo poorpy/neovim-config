@@ -119,14 +119,6 @@ M.setup = function()
 
     vim.lsp.set_log_level(vim.log.levels.INFO)
 
-    local null_ls = require "null-ls"
-
-    null_ls.setup {
-        sources = {
-            null_ls.builtins.diagnostics.mypy,
-        },
-    }
-
     -- lsp attach {{{
     vim.api.nvim_create_autocmd("LspAttach", {
         desc = "LSP actions",
@@ -163,35 +155,6 @@ M.setup = function()
             map("K", vim.lsp.buf.hover, "Hover Documentation")
             map("gD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
             imap("<C-h>", vim.lsp.buf.signature_help, "Signature help")
-        end,
-    })
-    -- }}}
-
-    -- Autoformatting Setup {{{
-
-    require("conform").formatters.terraform_fmt = {
-        command = "tofu",
-    }
-
-    require("conform").setup {
-        formatters_by_ft = {
-            lua = { "stylua" },
-            go = { "goimports", "golines" },
-            zig = { "zigfmt" },
-            terraform = { "terraform_fmt" },
-            hcl = { "terragrunt_hclfmt" },
-            nix = { "nixpkgs_fmt" },
-        },
-    }
-
-    vim.api.nvim_create_autocmd("BufWritePre", {
-        pattern = "*",
-        callback = function(args)
-            require("conform").format {
-                bufnr = args.buf,
-                lsp_fallback = true,
-                quiet = true,
-            }
         end,
     })
     -- }}}

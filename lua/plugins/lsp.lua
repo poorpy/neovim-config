@@ -21,10 +21,6 @@ return {
             "saghen/blink.cmp",
 
             -- Autoformatting & Linting
-            "stevearc/conform.nvim",
-            "nvimtools/none-ls.nvim",
-            -- "mfussenegger/nvim-lint",
-            --
 
             -- Schema information
             "b0o/SchemaStore.nvim",
@@ -33,6 +29,70 @@ return {
             require("config.lsp").setup()
         end,
     },
+    -- nvim-lint {{{
+    {
+        -- TODO: replace with mfussenegger/nvim-lint if my PR is merged
+        "poorpy/nvim-lint",
+        branch = "fix/tflint-nested-file",
+        event = {
+            "BufReadPre",
+            "BufNewFile",
+        },
+        config = function()
+            local lint = require "lint"
+
+            lint.linters_by_ft = {
+                terraform = { "tflint" },
+                python = { "mypy" },
+            }
+
+            local lint_augroup = vim.api.nvim_create_augroup("lint", { clear = true })
+
+            vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost", "InsertLeave" }, {
+                group = lint_augroup,
+                callback = function()
+                    lint.try_lint()
+                end,
+            })
+
+            vim.keymap.set("n", "<leader>L", function()
+                lint.try_lint()
+            end, { desc = "Trigger linting for current file" })
+        end,
+    },
+    -- }}}
+    -- conform.nvim {{{
+    {
+        "stevearc/conform.nvim",
+        config = function()
+            require("conform").formatters.terraform_fmt = {
+                command = "tofu",
+            }
+
+            require("conform").setup {
+                formatters_by_ft = {
+                    lua = { "stylua" },
+                    go = { "goimports", "golines" },
+                    zig = { "zigfmt" },
+                    terraform = { "terraform_fmt" },
+                    hcl = { "terragrunt_hclfmt" },
+                    nix = { "nixpkgs_fmt" },
+                },
+            }
+
+            vim.api.nvim_create_autocmd("BufWritePre", {
+                pattern = "*",
+                callback = function(args)
+                    require("conform").format {
+                        bufnr = args.buf,
+                        lsp_fallback = true,
+                        quiet = true,
+                    }
+                end,
+            })
+        end,
+    },
+    -- }}}
     {
         "ray-x/go.nvim",
         dependencies = { -- optional packages
