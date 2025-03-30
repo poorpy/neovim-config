@@ -20,8 +20,6 @@ return {
 
             "saghen/blink.cmp",
 
-            -- Autoformatting & Linting
-
             -- Schema information
             "b0o/SchemaStore.nvim",
         },
