@@ -29,9 +29,7 @@ return {
     },
     -- nvim-lint {{{
     {
-        -- TODO: replace with mfussenegger/nvim-lint if my PR is merged
-        "poorpy/nvim-lint",
-        branch = "fix/tflint-nested-file",
+        "mfussenegger/nvim-lint",
         event = {
             "BufReadPre",
             "BufNewFile",
