@@ -11,6 +11,10 @@ return {
 
             {
                 "nvim-java/nvim-java",
+                dependencies = {
+                    "mason-org/mason.nvim",
+                    version = "1.11.0",
+                },
                 config = function()
                     require("java").setup()
                 end,
