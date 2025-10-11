@@ -3,13 +3,6 @@ local M = {}
 M.setup = function()
     vim.opt.completeopt = { "menu", "menuone", "noselect" }
 
-    local lspconfig_defaults = require("lspconfig").util.default_config
-    lspconfig_defaults.capabilities = vim.tbl_deep_extend(
-        "force",
-        lspconfig_defaults.capabilities,
-        require("blink.cmp").get_lsp_capabilities()
-    )
-
     local servers = {
         "zls",
         "ccls",
@@ -23,25 +16,22 @@ M.setup = function()
         "golangci_lint_ls",
     }
 
-    local lspconfig = require "lspconfig"
-    for _, server in ipairs(servers) do
-        lspconfig[server].setup {}
-    end
+    vim.lsp.enable(servers)
 
     -- rust_analyzer {{{
-    require("lspconfig").rust_analyzer.setup {
+    vim.lsp.config("rust_analyzer", {
         settings = {
             ["rust-analyzer"] = {
-                checkOnSave = {
+                check = {
                     command = "clippy",
                 },
             },
         },
-    }
+    })
     -- }}}
 
     -- gopls {{{
-    require("lspconfig").gopls.setup {
+    vim.lsp.config("gopls", {
         cmd = { "gopls" },
         flags = {
             allow_incremental_sync = true,
@@ -71,11 +61,11 @@ M.setup = function()
             },
         },
         filetypes = { "go", "gomod" },
-    }
+    })
     -- }}}
 
     -- pyright {{{
-    require("lspconfig").pyright.setup {
+    vim.lsp.config("pyright", {
         settings = {
             python = {
                 analysis = {
@@ -84,10 +74,10 @@ M.setup = function()
                 },
             },
         },
-    }
+    })
     -- }}}
 
-    require("lspconfig").tailwindcss.setup {
+    vim.lsp.config("tailwindcss", {
         cmd = { "npx", "@tailwindcss/language-server", "--stdio" },
         filetypes = { "templ", "astro", "javascript", "typescript", "react" },
         settings = {
@@ -97,24 +87,24 @@ M.setup = function()
                 },
             },
         },
-    }
+    })
 
     -- html & json {{{
-    require("lspconfig").html.setup {
+    vim.lsp.config("html", {
         cmd = { "vscode-html-language-server", "--stdio" },
         init_options = {
             provideFormatter = false,
         },
 
         filetypes = { "html", "templ" },
-    }
+    })
 
-    require("lspconfig").jsonls.setup {
+    vim.lsp.config("jsonls", {
         cmd = { "vscode-json-language-server", "--stdio" },
         init_options = {
             provideFormatter = false,
         },
-    }
+    })
     -- }}}
 
     vim.lsp.set_log_level(vim.log.levels.INFO)

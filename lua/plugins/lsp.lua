@@ -13,8 +13,10 @@ return {
                 "nvim-java/nvim-java",
                 dependencies = {
                     "mason-org/mason.nvim",
-                    version = "1.11.0",
                 },
+                enabled = function()
+                    return vim.uv.os_get_passwd().username ~= "poorpy"
+                end,
                 config = function()
                     require("java").setup()
                 end,
