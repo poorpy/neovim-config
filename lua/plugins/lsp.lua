@@ -12,7 +12,15 @@ return {
             {
                 "nvim-java/nvim-java",
                 dependencies = {
-                    "mason-org/mason.nvim",
+                    {
+                        "mason-org/mason.nvim",
+                        opts = {
+                            registries = {
+                                "github:nvim-java/mason-registry",
+                                "github:mason-org/mason-registry",
+                            },
+                        },
+                    },
                 },
                 enabled = function()
                     return vim.uv.os_get_passwd().username ~= "poorpy"
@@ -30,6 +38,7 @@ return {
             "b0o/SchemaStore.nvim",
         },
         config = function()
+            vim.g.deprecation_warning = false
             require("config.lsp").setup()
         end,
     },
@@ -95,7 +104,7 @@ return {
                     require("conform").format {
                         bufnr = args.buf,
                         lsp_fallback = true,
-                        async = true,
+                        -- async = true,
                         quiet = true,
                     }
                 end,
@@ -103,6 +112,7 @@ return {
         end,
     },
     -- }}}
+    -- go.nvim {{{
     {
         "ray-x/go.nvim",
         dependencies = { -- optional packages
@@ -116,4 +126,5 @@ return {
         event = { "CmdlineEnter" },
         ft = { "go", "gomod" },
     },
+    -- }}}
 }
