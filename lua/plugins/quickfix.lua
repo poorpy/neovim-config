@@ -3,7 +3,7 @@ return {
         "kevinhwang91/nvim-bqf",
         dependencies = {
             "nvim-treesitter/nvim-treesitter",
-            { "junegunn/fzf", tag = "0.52.1" },
+            { "junegunn/fzf", version = "*" },
         },
         config = function()
             require("bqf").setup()

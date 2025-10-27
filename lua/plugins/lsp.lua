@@ -74,7 +74,8 @@ return {
             require("conform").setup {
                 formatters_by_ft = {
                     lua = { "stylua" },
-                    go = { "goimports", "golines" },
+                    -- go = { "goimports", "golines" },
+                    go = { "goimports" },
                     zig = { "zigfmt" },
                     terraform = { "terraform_fmt" },
                     hcl = { "terragrunt_hclfmt" },
@@ -85,9 +86,16 @@ return {
             vim.api.nvim_create_autocmd("BufWritePre", {
                 pattern = "*",
                 callback = function(args)
+                    local ft = vim.bo[args.buf].filetype
+                    local disabled = { c = true, cpp = true, h = true }
+                    if disabled[ft] ~= nil then
+                        return
+                    end
+
                     require("conform").format {
                         bufnr = args.buf,
                         lsp_fallback = true,
+                        async = true,
                         quiet = true,
                     }
                 end,
