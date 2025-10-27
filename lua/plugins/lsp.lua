@@ -1,4 +1,5 @@
 return {
+    --- {{{
     {
         "neovim/nvim-lspconfig",
         dependencies = {
@@ -42,6 +43,7 @@ return {
             require("config.lsp").setup()
         end,
     },
+    --- }}}
     -- nvim-lint {{{
     {
         "mfussenegger/nvim-lint",
