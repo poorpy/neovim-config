@@ -11,6 +11,8 @@ return {
             { "<leader>f_", hidden = true },
             { "<leader>g", group = "[G]it" },
             { "<leader>g_", hidden = true },
+            { "<leader>l", group = "[L]SP" },
+            { "<leader>l_", hidden = true },
             { "<leader>r", group = "[R]ename" },
             { "<leader>r_", hidden = true },
             { "<leader>s", group = "[S]earch" },
