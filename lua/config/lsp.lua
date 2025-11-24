@@ -25,6 +25,7 @@ M.setup = function()
                 check = {
                     command = "clippy",
                 },
+                formatOnSave = true,
             },
         },
     })
@@ -107,7 +108,7 @@ M.setup = function()
     })
     -- }}}
 
-    vim.lsp.set_log_level(vim.log.levels.INFO)
+    vim.lsp.set_log_level(vim.log.levels.ERROR)
 
     -- lsp attach {{{
     vim.api.nvim_create_autocmd("LspAttach", {

@@ -1,5 +1,5 @@
 return {
-    --- {{{
+    --- nvim-lspconfig {{{
     {
         "neovim/nvim-lspconfig",
         dependencies = {
@@ -82,6 +82,19 @@ return {
                 command = "tofu",
             }
 
+            require("conform").formatters.clippy = {
+                method = "cli",
+                command = "cargo",
+                args = {
+                    "clippy",
+                    "--fix",
+                    "--allow-dirty",
+                    "--allow-staged",
+                    "--message-format=json",
+                },
+                stdin = false,
+            }
+
             require("conform").setup {
                 formatters_by_ft = {
                     lua = { "stylua" },
@@ -91,6 +104,7 @@ return {
                     terraform = { "terraform_fmt" },
                     hcl = { "terragrunt_hclfmt" },
                     nix = { "nixpkgs_fmt" },
+                    rust = { "rustfmt", "clippy" },
                 },
             }
 
@@ -107,6 +121,7 @@ return {
                         bufnr = args.buf,
                         lsp_fallback = true,
                         -- async = true,
+                        force = true,
                         quiet = true,
                     }
                 end,

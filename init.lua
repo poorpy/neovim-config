@@ -20,6 +20,10 @@ vim.g.mapleader = " "
 ---@diagnostic disable-next-line: duplicate-set-field
 vim.deprecate = function() end
 
+vim.diagnostic.config {
+    virtual_text = false,
+}
+
 require("lazy").setup({ import = "plugins" }, {
     change_detection = {
         notify = false,
