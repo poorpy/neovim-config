@@ -9,8 +9,10 @@ M.setup = function()
         "nixd",
         "ruff",
         "jdtls",
+        "gopls",
         "templ",
         "lua_ls",
+        "pyright",
         "terraformls",
         "rust_analyzer",
         "golangci_lint_ls",
@@ -67,6 +69,7 @@ M.setup = function()
 
     -- pyright {{{
     vim.lsp.config("pyright", {
+        filetypes = { "python" },
         settings = {
             python = {
                 analysis = {
