@@ -1,15 +1,9 @@
 return {
-    --- nvim-lspconfig {{{
+    -- nvim-lspconfig {{{
     {
         "neovim/nvim-lspconfig",
         dependencies = {
             { "Bilal2453/luvit-meta", lazy = true },
-            {
-                "folke/lazydev.nvim",
-                ft = "lua",
-                opts = { library = { "luvit-meta/library" } },
-            },
-
             {
                 "nvim-java/nvim-java",
                 dependencies = {
@@ -43,7 +37,7 @@ return {
             require("config.lsp").setup()
         end,
     },
-    --- }}}
+    -- }}}
     -- nvim-lint {{{
     {
         "mfussenegger/nvim-lint",
@@ -128,21 +122,6 @@ return {
                 end,
             })
         end,
-    },
-    -- }}}
-    -- go.nvim {{{
-    {
-        "ray-x/go.nvim",
-        dependencies = { -- optional packages
-            "ray-x/guihua.lua",
-            "neovim/nvim-lspconfig",
-            "nvim-treesitter/nvim-treesitter",
-        },
-        config = function()
-            require("go").setup()
-        end,
-        event = { "CmdlineEnter" },
-        ft = { "go", "gomod" },
     },
     -- }}}
 }

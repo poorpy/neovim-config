@@ -49,13 +49,18 @@ return {
             },
 
             sources = {
-                default = { "copilot", "lsp", "path", "snippets", "buffer" },
+                default = { "lazydev", "lsp", "path", "snippets", "copilot", "buffer" },
                 providers = {
                     copilot = {
                         name = "copilot",
                         module = "blink-copilot",
-                        score_offset = 100,
+                        score_offset = 700,
                         async = true,
+                    },
+                    lazydev = {
+                        name = "LazyDev",
+                        module = "lazydev.integrations.blink",
+                        score_offset = 100,
                     },
                 },
             },

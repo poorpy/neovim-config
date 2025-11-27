@@ -111,7 +111,7 @@ M.setup = function()
     })
     -- }}}
 
-    vim.lsp.inlay_hint.enable(false)
+    -- vim.lsp.inlay_hint.enable(false)
     vim.lsp.set_log_level(vim.log.levels.ERROR)
 
     -- lsp attach {{{
@@ -135,24 +135,11 @@ M.setup = function()
                 )
             end
 
-            local inlay_toggle = function()
-                vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
-            end
-
-            local builtin = require "telescope.builtin"
-            map("gd", builtin.lsp_definitions, "[G]oto [D]efinition")
-            map("gD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
-            map("gr", builtin.lsp_references, "[G]oto [R]eferences")
-            map("gI", builtin.lsp_implementations, "[G]oto [I]mplementation")
-            map("gt", builtin.lsp_type_definitions, "[G]oto [T]ype Definition")
-            map("<leader>ds", builtin.lsp_document_symbols, "[D]ocument [S]ymbols")
-            map("<leader>ws", builtin.lsp_dynamic_workspace_symbols, "[W]orkspace [S]ymbols")
             map("<leader>rn", vim.lsp.buf.rename, "[R]e[n]ame")
             map("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction")
             map("<leader>ce", vim.diagnostic.open_float, "[C]ode [E]rror")
             map("<leader>cf", vim.lsp.buf.format, "[C]ode [F]ormat")
             map("<leader><leader>", vim.lsp.buf.format, "[C]ode [F]ormat")
-            map("<leader>li", inlay_toggle, "[L]SP [I]nlay hint toggle")
             map("K", vim.lsp.buf.hover, "Hover Documentation")
             imap("<C-h>", vim.lsp.buf.signature_help, "Signature help")
         end,
