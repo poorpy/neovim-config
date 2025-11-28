@@ -59,3 +59,7 @@ vim.api.nvim_create_autocmd("FileType", {
     pattern = { "gitcommit", "gitrebase", "gitconfig" },
     command = "set bufhidden=delete",
 })
+
+-- use treesitter as default fold method
+vim.wo.foldmethod = "expr"
+vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"

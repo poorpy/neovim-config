@@ -7,3 +7,17 @@ vim.api.nvim_create_autocmd("TextYankPost", {
     end,
     group = highlight_group,
 })
+
+local fold_group = vim.api.nvim_create_augroup("Fold", { clear = true })
+
+vim.api.nvim_create_autocmd({ "BufReadPost", "FileReadPost" }, {
+    desc = "Unfold folds on enter",
+    callback = function(ev)
+        if string.match(ev.match, "%.lua$") then
+            return
+        end
+
+        vim.cmd [[ normal zR ]]
+    end,
+    group = fold_group,
+})
