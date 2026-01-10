@@ -11,6 +11,7 @@ M.setup = function()
         "jdtls",
         "gopls",
         "templ",
+        "buf_ls",
         "lua_ls",
         "pyright",
         "terraformls",
@@ -26,6 +27,14 @@ M.setup = function()
             ["rust-analyzer"] = {
                 check = {
                     command = "clippy",
+                },
+                cargo = {
+                    buildScripts = {
+                        enable = true,
+                    },
+                },
+                procMacro = {
+                    enable = true,
                 },
                 formatOnSave = true,
             },

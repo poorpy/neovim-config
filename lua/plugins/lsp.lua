@@ -97,7 +97,7 @@ return {
                     zig = { "zigfmt" },
                     terraform = { "terraform_fmt" },
                     hcl = { "terragrunt_hclfmt" },
-                    nix = { "nixpkgs_fmt" },
+                    nix = { "alejandra" },
                     rust = { "rustfmt", "clippy" },
                 },
             }
