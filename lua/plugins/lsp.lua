@@ -93,7 +93,7 @@ return {
                 formatters_by_ft = {
                     lua = { "stylua" },
                     python = { "ruff" },
-                    go = { "goimports" },
+                    go = { "golangci-lint" },
                     zig = { "zigfmt" },
                     terraform = { "terraform_fmt" },
                     hcl = { "terragrunt_hclfmt" },
