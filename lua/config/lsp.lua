@@ -21,6 +21,23 @@ M.setup = function()
 
     vim.lsp.enable(servers)
 
+    --- ccls {{{
+    vim.lsp.config("ccls", {
+        cmd = { "ccls" },
+        filetypes = { "c", "cpp", "objc", "objcpp" },
+        root_markers = { ".ccls", "compile_commands.json", ".git" },
+        init_options = {
+            cache = {
+                hierarchicalPath = true,
+            },
+            index = {
+                initialBlacklist = { ".*/boost/.*" },
+            },
+        },
+    })
+
+    --- }}}
+
     -- rust_analyzer {{{
     vim.lsp.config("rust_analyzer", {
         settings = {
@@ -56,6 +73,7 @@ M.setup = function()
                     unusewrites = true,
                     unusedparams = true,
                     unreachable = true,
+                    ST1000 = false,
                 },
                 codelenses = {
                     generate = true,
