@@ -4,7 +4,6 @@ M.setup = function()
     vim.opt.completeopt = { "menu", "menuone", "noselect" }
 
     local servers = {
-        "zls",
         "ccls",
         "nixd",
         "ruff",
@@ -37,7 +36,6 @@ M.setup = function()
     })
 
     --- }}}
-
     -- rust_analyzer {{{
     vim.lsp.config("rust_analyzer", {
         settings = {
@@ -138,8 +136,7 @@ M.setup = function()
     })
     -- }}}
 
-    -- vim.lsp.inlay_hint.enable(false)
-    vim.lsp.set_log_level(vim.log.levels.ERROR)
+    vim.lsp.log.set_level(vim.log.levels.ERROR)
 
     -- lsp attach {{{
     vim.api.nvim_create_autocmd("LspAttach", {

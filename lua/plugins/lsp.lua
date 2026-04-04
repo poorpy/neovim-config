@@ -51,6 +51,7 @@ return {
             lint.linters_by_ft = {
                 terraform = { "tflint" },
                 python = { "mypy" },
+                cpp = { "clangtidy" },
             }
 
             local lint_augroup = vim.api.nvim_create_augroup("lint", { clear = true })
@@ -95,8 +96,7 @@ return {
                     python = { "ruff" },
                     go = { "golangci-lint" },
                     zig = { "zigfmt" },
-                    terraform = { "terraform_fmt" },
-                    hcl = { "terragrunt_hclfmt" },
+                    go = { "goimports" },
                     nix = { "alejandra" },
                     rust = { "rustfmt", "clippy" },
                 },
