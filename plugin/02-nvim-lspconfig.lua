@@ -1,0 +1,182 @@
+vim.pack.add {
+    "https://github.com/neovim/nvim-lspconfig",
+    "https://github.com/Bilal2453/luvit-meta",
+    "https://github.com/j-hui/fidget.nvim",
+    "https://github.com/b0o/SchemaStore.nvim",
+}
+
+require("fidget").setup {}
+
+vim.opt.completeopt = { "menu", "menuone", "noselect" }
+
+local servers = {
+    "ccls",
+    "nixd",
+    "ruff",
+    "jdtls",
+    "gopls",
+    "templ",
+    "buf_ls",
+    "lua_ls",
+    "pyright",
+    "terraformls",
+    "rust_analyzer",
+    "golangci_lint_ls",
+}
+
+vim.lsp.enable(servers)
+
+--- ccls {{{
+vim.lsp.config("ccls", {
+    cmd = { "ccls" },
+    filetypes = { "c", "cpp", "objc", "objcpp" },
+    root_markers = { ".ccls", "compile_commands.json", ".git" },
+    init_options = {
+        cache = {
+            hierarchicalPath = true,
+        },
+        index = {
+            initialBlacklist = { ".*/boost/.*" },
+        },
+    },
+})
+
+--- }}}
+-- rust_analyzer {{{
+vim.lsp.config("rust_analyzer", {
+    settings = {
+        ["rust-analyzer"] = {
+            check = {
+                command = "clippy",
+            },
+            cargo = {
+                buildScripts = {
+                    enable = true,
+                },
+            },
+            procMacro = {
+                enable = true,
+            },
+            formatOnSave = true,
+        },
+    },
+})
+-- }}}
+
+-- gopls {{{
+vim.lsp.config("gopls", {
+    cmd = { "gopls" },
+    flags = {
+        allow_incremental_sync = true,
+        debounce_text_changes = 500,
+    },
+    settings = {
+        gopls = {
+            analyses = {
+                nilness = true,
+                unusewrites = true,
+                unusedparams = true,
+                unreachable = true,
+                ST1000 = false,
+            },
+            codelenses = {
+                generate = true,
+                gc_details = true,
+                test = true,
+                tidy = true,
+            },
+            usePlaceholders = true,
+            completeUnimported = true,
+            staticcheck = true,
+            matcher = "Fuzzy",
+            diagnosticsDelay = "500ms",
+            symbolMatcher = "fuzzy",
+            gofumpt = true,
+        },
+    },
+    filetypes = { "go", "gomod" },
+})
+-- }}}
+
+-- pyright {{{
+vim.lsp.config("pyright", {
+    filetypes = { "python" },
+    settings = {
+        python = {
+            analysis = {
+                diagnosticMode = "off",
+                typeCheckingMode = "off",
+            },
+        },
+    },
+})
+-- }}}
+
+vim.lsp.config("tailwindcss", {
+    cmd = { "npx", "@tailwindcss/language-server", "--stdio" },
+    filetypes = { "templ", "astro", "javascript", "typescript", "react" },
+    settings = {
+        tailwindCSS = {
+            includeLanguages = {
+                templ = "html",
+            },
+        },
+    },
+})
+
+-- html & json {{{
+vim.lsp.config("html", {
+    cmd = { "vscode-html-language-server", "--stdio" },
+    init_options = {
+        provideFormatter = false,
+    },
+
+    filetypes = { "html", "templ" },
+})
+
+vim.lsp.config("jsonls", {
+    cmd = { "vscode-json-language-server", "--stdio" },
+    init_options = {
+        provideFormatter = false,
+    },
+    settings = {
+        json = {
+            schemas = require("schemastore").json.schemas(),
+            validate = { enable = true },
+        },
+    },
+})
+-- }}}
+
+vim.lsp.log.set_level(vim.log.levels.ERROR)
+
+-- lsp attach {{{
+vim.api.nvim_create_autocmd("LspAttach", {
+    desc = "LSP actions",
+    callback = function(event)
+        local map = function(keys, func, desc)
+            vim.keymap.set(
+                "n",
+                keys,
+                func,
+                { buffer = event.buf, noremap = true, silent = true, desc = "LSP: " .. desc }
+            )
+        end
+        local imap = function(keys, func, desc)
+            vim.keymap.set(
+                "i",
+                keys,
+                func,
+                { buffer = event.buf, noremap = true, silent = true, desc = "LSP: " .. desc }
+            )
+        end
+
+        map("<leader>rn", vim.lsp.buf.rename, "[R]e[n]ame")
+        map("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction")
+        map("<leader>ce", vim.diagnostic.open_float, "[C]ode [E]rror")
+        map("<leader>cf", vim.lsp.buf.format, "[C]ode [F]ormat")
+        map("<leader><leader>", vim.lsp.buf.format, "[C]ode [F]ormat")
+        map("K", vim.lsp.buf.hover, "Hover Documentation")
+        imap("<C-h>", vim.lsp.buf.signature_help, "Signature help")
+    end,
+})

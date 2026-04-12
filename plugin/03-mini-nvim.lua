@@ -1,6 +1,10 @@
-local M = {}
+vim.pack.add {
+    { src = "https://github.com/nvim-mini/mini.nvim", version = vim.version.range "*" },
+}
 
-M.config = {
+require("mini.ai").setup()
+require("mini.surround").setup { n_lines = 500 }
+require("mini.pairs").setup {
     -- In which modes mappings from this `config` should be created
     modes = { insert = true, command = false, terminal = false },
 
@@ -40,13 +44,3 @@ M.config = {
         },
     },
 }
-
-M.setup = function()
-    local ok, pairs = pcall(require, "mini.pairs")
-    if not ok then
-        return
-    end
-    pairs.setup(M.config)
-end
-
-return M
