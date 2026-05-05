@@ -2,9 +2,10 @@ vim.pack.add {
     { src = "https://github.com/nvim-mini/mini.nvim", version = vim.version.range "*" },
 }
 
-require("mini.ai").setup()
-require("mini.surround").setup { n_lines = 500 }
+require("mini.ai").setup { n_lines = 1000 }
+require("mini.surround").setup { n_lines = 1000, search_method = "cover_or_prev" }
 require("mini.pairs").setup {
+    n_lines = 1000,
     -- In which modes mappings from this `config` should be created
     modes = { insert = true, command = false, terminal = false },
 
