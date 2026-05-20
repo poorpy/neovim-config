@@ -59,6 +59,12 @@ require("blink.cmp").setup {
             snippets = {
                 opts = {
                     friendly_snippets = true,
+                    filter_snippets = function(ft, file)
+                        if ft == "go" and string.match(file, "friendly.snippets") then
+                            return false
+                        end
+                        return true
+                    end,
                 },
             },
         },
