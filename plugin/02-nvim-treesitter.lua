@@ -15,18 +15,31 @@ vim.api.nvim_create_autocmd("PackChanged", {
     end,
 })
 
+vim.filetype.add {
+    extension = {
+        gotmpl = "gotmpl",
+    },
+    pattern = {
+        [".*/templates/.*%.tpl"] = "helm",
+        [".*/templates/.*%.ya?ml"] = "helm",
+        ["helmfile.*%.ya?ml"] = "helm",
+    },
+}
+
 require("nvim-treesitter").install {
     "bash",
     "c",
     "cpp",
     "fish",
     "go",
+    "gotmpl",
     "json",
     "json5",
     "lua",
     "markdown",
     "markdown_inline",
     "html",
+    "helm",
     "nix",
     "python",
     "rust",

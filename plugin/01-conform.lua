@@ -23,6 +23,7 @@ conform.formatters.clippy = {
 conform.setup {
     formatters_by_ft = {
         lua = { "stylua" },
+        css = { "css_beautify" },
         python = { "ruff" },
         go = { "golangci-lint" },
         zig = { "zigfmt" },
