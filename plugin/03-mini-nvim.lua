@@ -53,9 +53,37 @@ end
 require("mini.pick").setup()
 require("mini.extra").setup()
 
+local show_with_icons = function(buf_id, items, query)
+    MiniPick.default_show(buf_id, items, query, { show_icons = true })
+end
 nmap("<leader>sf", function()
-    MiniPick.builtin.files()
+    local command = {
+        "fd",
+        "--type=file",
+        "--color=never",
+        "--exclude=vendor",
+    }
+    MiniPick.builtin.cli(
+        { command = command },
+        { source = { name = "Files", show = show_with_icons } }
+    )
 end, "Files")
+nmap("<leader>sF", function()
+    local command = {
+        "fd",
+        "--type=file",
+        "--color=never",
+        "--hidden",
+        "--exclude=.git",
+        "--exclude=.jj",
+        "--exclude=.venv",
+        "--exclude=vendor",
+    }
+    MiniPick.builtin.cli(
+        { command = command },
+        { source = { name = "Files (hidden)", show = show_with_icons } }
+    )
+end, "Files (hidden)")
 nmap("<leader>sh", function()
     MiniPick.builtin.help()
 end, "Help pages")
