@@ -45,3 +45,59 @@ require("mini.pairs").setup {
         },
     },
 }
+
+local nmap = function(keys, func, desc)
+    vim.keymap.set("n", keys, func, { noremap = true, silent = true, desc = desc })
+end
+
+require("mini.pick").setup()
+require("mini.extra").setup()
+
+nmap("<leader>sf", function()
+    MiniPick.builtin.files()
+end, "Files")
+nmap("<leader>sh", function()
+    MiniPick.builtin.help()
+end, "Help pages")
+nmap("<leader>sg", function()
+    MiniPick.builtin.grep_live()
+end, "Grep")
+nmap("<leader>sd", function()
+    MiniExtra.pickers.diagnostic { scope = "all" }
+end, "Diagnostics")
+nmap("<leader>sD", function()
+    MiniExtra.pickers.diagnostic { scope = "current" }
+end, "Buffer Diagnostics")
+nmap("<leader>sc", function()
+    MiniExtra.pickers.history { scope = ":" }
+end, "Command History")
+nmap("<leader>sC", function()
+    MiniExtra.pickers.commands()
+end, "Commands")
+nmap("<leader>sb", function()
+    MiniPick.builtin.buffers()
+end, "Buffers")
+nmap("<leader>sl", function()
+    MiniExtra.pickers.buf_lines { scope = "current" }
+end, "Buffer Lines")
+nmap("gd", function()
+    MiniExtra.pickers.lsp { scope = "definition" }
+end, "Goto Definition")
+nmap("gD", function()
+    MiniExtra.pickers.lsp { scope = "declaration" }
+end, "Goto Declaration")
+nmap("gr", function()
+    MiniExtra.pickers.lsp { scope = "references" }
+end, "References")
+nmap("gI", function()
+    MiniExtra.pickers.lsp { scope = "implementation" }
+end, "Goto Implementation")
+nmap("gy", function()
+    MiniExtra.pickers.lsp { scope = "type_definition" }
+end, "Goto T[y]pe Definition")
+nmap("<leader>ss", function()
+    MiniExtra.pickers.lsp { scope = "document_symbol" }
+end, "LSP Symbols")
+nmap("<leader>sS", function()
+    MiniExtra.pickers.lsp { scope = "workspace_symbol" }
+end, "LSP Workspace Symbols")

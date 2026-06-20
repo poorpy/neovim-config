@@ -9,7 +9,6 @@ local lazydev = require "lazydev"
 lazydev.setup {
     library = {
         { path = "${3rd}/luv/library", words = { "vim%.uv" } },
-        { path = "snacks.nvim", words = { "Snacks" } },
     },
 }
 require("blink.cmp").setup {
