@@ -88,8 +88,14 @@ nmap("<leader>sh", function()
     MiniPick.builtin.help()
 end, "Help pages")
 nmap("<leader>sg", function()
-    MiniPick.builtin.grep_live()
+    MiniPick.builtin.grep_live(
+        { globs = { "!vendor/**", "!.venv/**", "!.git/**", "!.jj/**" } },
+        { source = { show = show_with_icons } }
+    )
 end, "Grep")
+nmap("<leader>sG", function()
+    MiniPick.builtin.grep_live(nil, { source = { show = show_with_icons } })
+end, "Grep (default)")
 nmap("<leader>sd", function()
     MiniExtra.pickers.diagnostic { scope = "all" }
 end, "Diagnostics")
