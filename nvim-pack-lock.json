@@ -1,7 +1,7 @@
 {
   "plugins": {
     "SchemaStore.nvim": {
-      "rev": "c73e2b170a4927d1dc1b48e878bba6cf0ed9b07c",
+      "rev": "19e40cef03a380bfb578793a08222826118664dd",
       "src": "https://github.com/b0o/SchemaStore.nvim"
     },
     "blink.cmp": {
@@ -14,11 +14,11 @@
       "src": "https://github.com/stevearc/conform.nvim"
     },
     "fidget.nvim": {
-      "rev": "82404b196e73a00b1727a91903beef5ddc319d22",
+      "rev": "6f793b2bcd2d35e201c09520f698bb763220908a",
       "src": "https://github.com/j-hui/fidget.nvim"
     },
     "flash.nvim": {
-      "rev": "fcea7ff883235d9024dc41e638f164a450c14ca2",
+      "rev": "b6346946d10d07998efee029fb0f7a593806d0cd",
       "src": "https://github.com/folke/flash.nvim"
     },
     "friendly-snippets": {
@@ -30,7 +30,7 @@
       "src": "https://github.com/folke/lazydev.nvim"
     },
     "live-server.nvim": {
-      "rev": "85915d0e7dd926a54b0082aaeafc10a82bfe8288",
+      "rev": "f98bae79fd30274524412f7514549d84391d6bb2",
       "src": "https://github.com/selimacerbas/live-server.nvim"
     },
     "lspkind.nvim": {
@@ -46,25 +46,37 @@
       "src": "https://github.com/Bilal2453/luvit-meta"
     },
     "markdown-preview.nvim": {
-      "rev": "545cf3bc6c6425b33a9b25acef54f66e4035ca0f",
+      "rev": "faf50b5e233df953a1fd6946d0a8d758bf2e38a1",
       "src": "https://github.com/selimacerbas/markdown-preview.nvim",
       "version": "1.0.0 - 2.0.0"
     },
     "mini.nvim": {
-      "rev": "a995fe9cd4193fb492b5df69175a351a74b3d36b",
+      "rev": "1345d191bb3da9c7b0e977f4387c5761f9bff68d",
       "src": "https://github.com/nvim-mini/mini.nvim",
       "version": ">=0.0.0"
     },
     "nightfox.nvim": {
-      "rev": "26b61b1f856ec37cae3cb64f5690adb955f246a1",
+      "rev": "4dacd3f0185a2227bdf3b6c0975a8f0bf87cac9a",
       "src": "https://github.com/EdenEast/nightfox.nvim"
     },
+    "nui.nvim": {
+      "rev": "de740991c12411b663994b2860f1a4fd0937c130",
+      "src": "https://github.com/MunifTanjim/nui.nvim"
+    },
+    "nvim-dap": {
+      "rev": "9e848e09a697ee95302a3ef2dd43fd6eb709e570",
+      "src": "https://github.com/mfussenegger/nvim-dap"
+    },
+    "nvim-java": {
+      "rev": "9e8b842ea9eff3ebf25fb7360908ed4d4f87c56a",
+      "src": "https://github.com/nvim-java/nvim-java"
+    },
     "nvim-lint": {
-      "rev": "01c9842c089069ab497430159312b2c8868a4590",
+      "rev": "a219b2c9e5b4765e5c845aba119dad55806fcaf1",
       "src": "https://github.com/mfussenegger/nvim-lint"
     },
     "nvim-lspconfig": {
-      "rev": "bfcc0171a43f22afa61d927ffe9fcb6cb85dc99e",
+      "rev": "b7b920947f21339ee41fbb38c79d6445e12900aa",
       "src": "https://github.com/neovim/nvim-lspconfig"
     },
     "nvim-notify": {
@@ -72,15 +84,15 @@
       "src": "https://github.com/rcarriga/nvim-notify"
     },
     "nvim-treesitter": {
-      "rev": "4916d6592ede8c07973490d9322f187e07dfefac",
+      "rev": "61df84986b4b4ec469ee745a182e433d49f8c27e",
       "src": "https://github.com/nvim-treesitter/nvim-treesitter"
     },
     "nvim-treesitter-textobjects": {
-      "rev": "851e865342e5a4cb1ae23d31caf6e991e1c99f1e",
+      "rev": "898ee307df58f854d11cd7edd06472574d48014e",
       "src": "https://github.com/nvim-treesitter/nvim-treesitter-textobjects"
     },
     "nvim-web-devicons": {
-      "rev": "dfbfaa967a6f7ec50789bead7ef87e336c1fa63c",
+      "rev": "2ae6958df7ced50baac5035cec0c15799eedfbf7",
       "src": "https://github.com/nvim-tree/nvim-web-devicons"
     },
     "oil.nvim": {
@@ -88,12 +100,17 @@
       "src": "https://github.com/stevearc/oil.nvim"
     },
     "pi.nvim": {
-      "rev": "4ba6db0dd30406995a2e46e4f1ae39377e66e733",
+      "rev": "9b619b4f9fb96fa4dc1a6a7776a651980cd819a0",
       "src": "https://github.com/pablopunk/pi.nvim"
     },
     "quicker.nvim": {
       "rev": "4a6883cb13fe097a20a046eb55f6dffd239276e3",
       "src": "https://github.com/stevearc/quicker.nvim"
+    },
+    "spring-boot.nvim": {
+      "rev": "218c0c26c14d99feca778e4d13f5ec3e8b1b60f0",
+      "src": "https://github.com/JavaHello/spring-boot.nvim",
+      "version": "'218c0c26c14d99feca778e4d13f5ec3e8b1b60f0'"
     },
     "vim-abolish": {
       "rev": "dcbfe065297d31823561ba787f51056c147aa682",
