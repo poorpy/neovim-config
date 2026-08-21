@@ -19,6 +19,7 @@ require("fidget").setup {}
 vim.opt.completeopt = { "menu", "menuone", "noselect" }
 
 local servers = {
+    "ols",
     "ccls",
     "nixd",
     "ruff",
