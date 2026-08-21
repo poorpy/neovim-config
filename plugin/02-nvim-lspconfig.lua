@@ -1,18 +1,23 @@
+local is_java_user = os.getenv "USER" == "bmarczyn"
+
 vim.pack.add {
     "https://github.com/neovim/nvim-lspconfig",
     "https://github.com/Bilal2453/luvit-meta",
     "https://github.com/j-hui/fidget.nvim",
     "https://github.com/b0o/SchemaStore.nvim",
-
-    {
-        src = "https://github.com/JavaHello/spring-boot.nvim",
-        version = "218c0c26c14d99feca778e4d13f5ec3e8b1b60f0",
-    },
-    "https://github.com/MunifTanjim/nui.nvim",
-    "https://github.com/mfussenegger/nvim-dap",
-
-    "https://github.com/nvim-java/nvim-java",
 }
+
+if is_java_user then
+    vim.pack.add {
+        {
+            src = "https://github.com/JavaHello/spring-boot.nvim",
+            version = "218c0c26c14d99feca778e4d13f5ec3e8b1b60f0",
+        },
+        "https://github.com/MunifTanjim/nui.nvim",
+        "https://github.com/mfussenegger/nvim-dap",
+        "https://github.com/nvim-java/nvim-java",
+    }
+end
 
 require("fidget").setup {}
 
@@ -23,7 +28,6 @@ local servers = {
     "ccls",
     "nixd",
     "ruff",
-    "jdtls",
     "gopls",
     "templ",
     "buf_ls",
@@ -110,8 +114,10 @@ vim.lsp.config("gopls", {
 -- }}}
 
 -- java {{{
-require("java").setup()
-vim.lsp.enable "jdtls"
+if is_java_user then
+    require("java").setup()
+    vim.lsp.enable "jdtls"
+end
 -- }}}
 
 -- pyright {{{
