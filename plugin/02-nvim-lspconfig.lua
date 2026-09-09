@@ -33,6 +33,7 @@ local servers = {
     "buf_ls",
     "lua_ls",
     "pyright",
+    "ocamllsp",
     "terraformls",
     "rust_analyzer",
     "golangci_lint_ls",

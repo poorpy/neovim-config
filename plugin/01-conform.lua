@@ -29,6 +29,7 @@ conform.setup {
         zig = { "zigfmt" },
         nix = { "alejandra" },
         rust = { "rustfmt", "clippy" },
+        ocaml = { "ocamlformat" },
     },
 }
 
