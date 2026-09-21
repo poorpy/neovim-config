@@ -9,7 +9,7 @@ map("n", "<A-J>", "gT")
 map("n", "<A-K>", "gt")
 
 -- use jj to return to normal mode
-map("i", "jj", "<Esc>")
+-- map("i", "jj", "<Esc>")
 
 -- disable search highlight after entering insert mode
 for _, v in ipairs { "a", "A", "<Insert>", "i", "I", "gI", "gi", "o", "O" } do
