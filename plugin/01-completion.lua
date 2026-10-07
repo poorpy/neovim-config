@@ -1,19 +1,17 @@
 vim.pack.add {
     "https://github.com/rafamadriz/friendly-snippets",
-    "https://github.com/onsails/lspkind.nvim",
     "https://github.com/folke/lazydev.nvim",
     { src = "https://github.com/saghen/blink.cmp", version = vim.version.range "1.*" },
 }
 
-local lazydev = require "lazydev"
-lazydev.setup {
+require("lazydev").setup {
     library = {
         { path = "${3rd}/luv/library", words = { "vim%.uv" } },
     },
 }
+
 require("blink.cmp").setup {
     appearance = {
-        use_nvim_cmp_as_default = false,
         nerd_font_variant = "mono",
     },
     keymap = {
@@ -30,7 +28,6 @@ require("blink.cmp").setup {
         documentation = {
             auto_show = true,
             treesitter_highlighting = true,
-            window = { border = "rounded" },
         },
 
         list = {
@@ -41,10 +38,8 @@ require("blink.cmp").setup {
         },
     },
 
-    -- Experimental signature help support
     signature = {
         enabled = true,
-        window = { border = "rounded" },
     },
 
     sources = {

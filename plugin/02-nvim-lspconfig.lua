@@ -2,9 +2,6 @@ local is_java_user = os.getenv "USER" == "bmarczyn"
 
 vim.pack.add {
     "https://github.com/neovim/nvim-lspconfig",
-    "https://github.com/Bilal2453/luvit-meta",
-    "https://github.com/j-hui/fidget.nvim",
-    "https://github.com/b0o/SchemaStore.nvim",
 }
 
 if is_java_user then
@@ -19,33 +16,8 @@ if is_java_user then
     }
 end
 
-require("fidget").setup {}
-
-vim.opt.completeopt = { "menu", "menuone", "noselect" }
-
-local servers = {
-    "ols",
-    "ccls",
-    "nixd",
-    "ruff",
-    "gopls",
-    "templ",
-    "buf_ls",
-    "lua_ls",
-    "pyright",
-    "ocamllsp",
-    "terraformls",
-    "rust_analyzer",
-    "golangci_lint_ls",
-}
-
-vim.lsp.enable(servers)
-
 --- ccls {{{
 vim.lsp.config("ccls", {
-    cmd = { "ccls" },
-    filetypes = { "c", "cpp", "objc", "objcpp" },
-    root_markers = { ".ccls", "compile_commands.json", ".git" },
     init_options = {
         cache = {
             hierarchicalPath = true,
@@ -55,7 +27,6 @@ vim.lsp.config("ccls", {
         },
     },
 })
-
 --- }}}
 
 -- rust_analyzer {{{
@@ -73,7 +44,6 @@ vim.lsp.config("rust_analyzer", {
             procMacro = {
                 enable = true,
             },
-            formatOnSave = true,
         },
     },
 })
@@ -81,7 +51,6 @@ vim.lsp.config("rust_analyzer", {
 
 -- gopls {{{
 vim.lsp.config("gopls", {
-    cmd = { "gopls" },
     flags = {
         allow_incremental_sync = true,
         debounce_text_changes = 500,
@@ -90,7 +59,7 @@ vim.lsp.config("gopls", {
         gopls = {
             analyses = {
                 nilness = true,
-                unusewrites = true,
+                unusedwrite = true,
                 unusedparams = true,
                 unreachable = true,
                 ST1000 = false,
@@ -110,9 +79,20 @@ vim.lsp.config("gopls", {
             gofumpt = true,
         },
     },
-    filetypes = { "go", "gomod" },
 })
 -- }}}
+
+vim.lsp.enable {
+    "ty",
+    "ccls",
+    "ruff",
+    "gopls",
+    "templ",
+    "buf_ls",
+    "lua_ls",
+    "rust_analyzer",
+    "golangci_lint_ls",
+}
 
 -- java {{{
 if is_java_user then
@@ -121,59 +101,12 @@ if is_java_user then
 end
 -- }}}
 
--- pyright {{{
-vim.lsp.config("pyright", {
-    filetypes = { "python" },
-    settings = {
-        python = {
-            analysis = {
-                diagnosticMode = "off",
-                typeCheckingMode = "off",
-            },
-        },
-    },
-})
--- }}}
-
-vim.lsp.config("tailwindcss", {
-    cmd = { "npx", "@tailwindcss/language-server", "--stdio" },
-    filetypes = { "templ", "astro", "javascript", "typescript", "react" },
-    settings = {
-        tailwindCSS = {
-            includeLanguages = {
-                templ = "html",
-            },
-        },
-    },
-})
-
--- html & json {{{
-vim.lsp.config("html", {
-    cmd = { "vscode-html-language-server", "--stdio" },
-    init_options = {
-        provideFormatter = false,
-    },
-
-    filetypes = { "html", "templ" },
-})
-
-vim.lsp.config("jsonls", {
-    cmd = { "vscode-json-language-server", "--stdio" },
-    init_options = {
-        provideFormatter = false,
-    },
-    settings = {
-        json = {
-            schemas = require("schemastore").json.schemas(),
-            validate = { enable = true },
-        },
-    },
-})
--- }}}
-
+vim.lsp.codelens.enable(true)
 vim.lsp.log.set_level(vim.log.levels.ERROR)
 
 -- lsp attach {{{
+-- built-in defaults cover: K (hover), grn (rename), gra (code action), grr (references),
+-- gri (implementation), grt (type definition), gO (symbols), <C-w>d (diagnostics), <C-s> (signature)
 vim.api.nvim_create_autocmd("LspAttach", {
     desc = "LSP actions",
     callback = function(event)
@@ -185,21 +118,13 @@ vim.api.nvim_create_autocmd("LspAttach", {
                 { buffer = event.buf, noremap = true, silent = true, desc = "LSP: " .. desc }
             )
         end
-        local imap = function(keys, func, desc)
-            vim.keymap.set(
-                "i",
-                keys,
-                func,
-                { buffer = event.buf, noremap = true, silent = true, desc = "LSP: " .. desc }
-            )
-        end
 
         map("<leader>rn", vim.lsp.buf.rename, "[R]e[n]ame")
         map("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction")
         map("<leader>ce", vim.diagnostic.open_float, "[C]ode [E]rror")
-        map("<leader>cf", vim.lsp.buf.format, "[C]ode [F]ormat")
-        map("<leader><leader>", vim.lsp.buf.format, "[C]ode [F]ormat")
-        map("K", vim.lsp.buf.hover, "Hover Documentation")
-        imap("<C-h>", vim.lsp.buf.signature_help, "Signature help")
+        map("<leader>cf", function()
+            require("conform").format { lsp_format = "fallback" }
+        end, "[C]ode [F]ormat")
     end,
 })
+-- }}}

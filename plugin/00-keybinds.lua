@@ -8,10 +8,11 @@ map({ "i", "t" }, "<A-K>", "<C-\\><C-N>gt")
 map("n", "<A-J>", "gT")
 map("n", "<A-K>", "gt")
 
--- use jj to return to normal mode
--- map("i", "jj", "<Esc>")
-
 -- disable search highlight after entering insert mode
-for _, v in ipairs { "a", "A", "<Insert>", "i", "I", "gI", "gi", "o", "O" } do
-    map("n", v, ":noh<CR>" .. v)
-end
+vim.api.nvim_create_autocmd("InsertEnter", {
+    desc = "Clear search highlight",
+    group = vim.api.nvim_create_augroup("NoHlsearch", { clear = true }),
+    callback = function()
+        vim.schedule(vim.cmd.nohlsearch)
+    end,
+})

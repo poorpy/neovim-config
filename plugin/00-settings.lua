@@ -10,7 +10,7 @@ vim.o.expandtab = true
 -- highlight cursorline
 vim.o.cursorline = true
 
--- disable swap, backup, insert prompt
+-- disable swap, backup; mode is shown by the statusline
 vim.o.swapfile = false
 vim.o.backup = false
 vim.o.writebackup = false
@@ -29,37 +29,19 @@ vim.o.ignorecase = true
 vim.o.smartcase = true
 
 -- show preview of s/smagic/snomagic commands
-vim.opt.inccommand = "split"
-
--- hide buffer on closing
-vim.o.hidden = true
-
--- mouse support
-vim.o.mouse = "a"
+vim.o.inccommand = "split"
 
 -- always display signcolumn
-vim.wo.signcolumn = "yes"
+vim.o.signcolumn = "yes"
 
--- enable 24-bit RGB
-vim.o.termguicolors = true
-
--- set latex as default tex flavor
-vim.g.texflavor = "latex"
-
--- use zathura for LaTeX preview
-vim.g.vimtex_view_general_viewer = "zathura"
-
--- use dark background
-vim.opt.background = "dark"
+-- rounded borders for all floating windows and the completion menu
+vim.o.winborder = "rounded"
+vim.o.pumborder = "rounded"
 
 -- use ripgrep instead of grep
 vim.o.grepprg = "rg --vimgrep --smart-case --follow"
 
-vim.api.nvim_create_autocmd("FileType", {
-    pattern = { "gitcommit", "gitrebase", "gitconfig" },
-    command = "set bufhidden=delete",
-})
-
--- use treesitter as default fold method
-vim.wo[0][0].foldmethod = "expr"
-vim.wo[0][0].foldexpr = "v:lua.vim.treesitter.foldexpr()"
+-- use treesitter as default fold method, start with everything unfolded
+vim.o.foldmethod = "expr"
+vim.o.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+vim.o.foldlevelstart = 99

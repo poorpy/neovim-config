@@ -18,6 +18,7 @@ vim.api.nvim_create_autocmd("PackChanged", {
 vim.filetype.add {
     extension = {
         gotmpl = "gotmpl",
+        ebnf = "ebnf",
     },
     pattern = {
         [".*/templates/.*%.tpl"] = "helm",
@@ -26,9 +27,9 @@ vim.filetype.add {
     },
 }
 
+-- parsers bundled with neovim (c, lua, vim, markdown, markdown_inline, query, vimdoc) are omitted
 require("nvim-treesitter").install {
     "bash",
-    "c",
     "cpp",
     "ebnf",
     "fish",
@@ -37,16 +38,12 @@ require("nvim-treesitter").install {
     "json",
     "json5",
     "just",
-    "lua",
-    "markdown",
-    "markdown_inline",
     "html",
     "helm",
     "nix",
     "python",
     "rust",
     "toml",
-    "vim",
     "xml",
     "yaml",
 }
@@ -80,13 +77,6 @@ nxomap(
             { "@loop.inner", "@loop.outer" },
             "textobjects"
         )
-    end -- }}}
-)
-nxomap(
-    "]s", -- {{{
-
-    function()
-        require("nvim-treesitter-textobjects.move").goto_next_start("@local.scope", "locals")
     end -- }}}
 )
 nxomap(
@@ -139,20 +129,5 @@ nxomap(
     "[]", -- {{{
     function()
         require("nvim-treesitter-textobjects.move").goto_previous_end("@class.outer", "textobjects")
-    end -- }}}
-)
-nxomap(
-    "]d", -- {{{
-    function()
-        require("nvim-treesitter-textobjects.move").goto_next("@conditional.outer", "textobjects")
-    end -- }}}
-)
-nxomap(
-    "[d", -- {{{
-    function()
-        require("nvim-treesitter-textobjects.move").goto_previous(
-            "@conditional.outer",
-            "textobjects"
-        )
     end -- }}}
 )
