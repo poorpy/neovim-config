@@ -84,6 +84,7 @@ vim.lsp.config("gopls", {
 
 vim.lsp.enable {
     "ty",
+    "zls",
     "ccls",
     "ruff",
     "gopls",
@@ -104,8 +105,8 @@ vim.lsp.codelens.enable(true)
 vim.lsp.log.set_level(vim.log.levels.ERROR)
 
 -- lsp attach {{{
--- built-in defaults cover: K (hover), grn (rename), gra (code action), grr (references),
--- gri (implementation), grt (type definition), gO (symbols), <C-w>d (diagnostics), <C-s> (signature)
+-- built-in defaults cover: K (hover), grn (rename), gra (code action), grx (codelens),
+-- gO (symbols), <C-w>d (diagnostics), <C-s> (signature)
 vim.api.nvim_create_autocmd("LspAttach", {
     desc = "LSP actions",
     callback = function(event)
@@ -124,6 +125,28 @@ vim.api.nvim_create_autocmd("LspAttach", {
         map("<leader>cf", function()
             require("conform").format { lsp_format = "fallback" }
         end, "[C]ode [F]ormat")
+
+        map("gd", function()
+            MiniExtra.pickers.lsp { scope = "definition" }
+        end, "[G]oto [d]efinition")
+        map("gD", function()
+            MiniExtra.pickers.lsp { scope = "declaration" }
+        end, "[G]oto [D]eclaration")
+        map("grr", function()
+            MiniExtra.pickers.lsp { scope = "references" }
+        end, "References")
+        map("gri", function()
+            MiniExtra.pickers.lsp { scope = "implementation" }
+        end, "Goto Implementation")
+        map("grt", function()
+            MiniExtra.pickers.lsp { scope = "type_definition" }
+        end, "Goto Type Definition")
+        map("<leader>ss", function()
+            MiniExtra.pickers.lsp { scope = "document_symbol" }
+        end, "Symbols")
+        map("<leader>sS", function()
+            MiniExtra.pickers.lsp { scope = "workspace_symbol" }
+        end, "Workspace Symbols")
     end,
 })
 -- }}}

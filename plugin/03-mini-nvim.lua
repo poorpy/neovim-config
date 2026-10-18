@@ -100,10 +100,6 @@ miniclue.setup {
     window = { delay = 300 },
 }
 
-nmap("grr", function()
-    MiniExtra.pickers.lsp { scope = "references" }
-end, "References")
-
 local show_with_icons = function(buf_id, items, query)
     MiniPick.default_show(buf_id, items, query, { show_icons = true })
 end
@@ -165,9 +161,3 @@ end, "Buffers")
 nmap("<leader>sl", function()
     MiniExtra.pickers.buf_lines { scope = "current" }
 end, "Buffer Lines")
-nmap("<leader>ss", function()
-    MiniExtra.pickers.lsp { scope = "document_symbol" }
-end, "LSP Symbols")
-nmap("<leader>sS", function()
-    MiniExtra.pickers.lsp { scope = "workspace_symbol" }
-end, "LSP Workspace Symbols")
